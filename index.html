@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--
+    ③ Content Security Policy (meta tag — GitHub Pages cannot set HTTP headers).
+       Locks down allowed sources. 'unsafe-inline' on style-src is required for
+       the inline <style> block; use a nonce-based approach if moving to a
+       server that supports it. No 'unsafe-inline' on script-src.
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; frame-src https://cal.com; base-uri 'self'; form-action 'none';">
+
+  <!--
+    ⑤ Robots — tells search engines not to index this file directly.
+       A robots.txt in the repo root is also required.
+  -->
+  <meta name="robots" content="index, follow">
+
+  <title>Two Jay Ventures — Operator-Investors · Pre-Seed · Canada</title>
+  <meta name="description" content="Two Jay Ventures — Operator-investors backing pre-seed technology founders in Canada. Capital and deep operational expertise, one package.">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://twojay.vc">
+
+  <!-- Open Graph / social share -->
+  <meta property="og:title"        content="Two Jay Ventures — Operator-Investors · Pre-Seed · Canada">
+  <meta property="og:description"  content="Investing, And building, with you. Operator-investors backing pre-seed technology founders in Canada.">
+  <meta property="og:type"         content="website">
+  <meta property="og:url"          content="https://twojay.vc">
+  <meta property="og:image"        content="https://twojay.vc/assets/og-image.svg">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Two Jay Ventures — Operator-Investors · Pre-Seed · Canada">
+  <meta name="twitter:description" content="Investing, And building, with you.">
+  <meta name="twitter:image"       content="https://twojay.vc/assets/og-image.svg">
+
+  <!-- JSON-LD structured data — email encoded as unicode escape (\u0040 = @) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Two Jay Ventures",
+    "url": "https://twojay.vc",
+    "logo": "https://twojay.vc/assets/logo.png",
+    "description": "Operator-investors backing pre-seed technology founders in Canada.",
+    "foundingDate": "2023",
+    "areaServed": "Canada",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "jonathan\u0040twojay.vc",
+      "contactType": "investment inquiries"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/in/jonathanjenin"
+    ]
+  }
+  </script>
+
+  <!-- Favicon: circular crop baked into the PNG -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Google Fonts SRI: not applicable. Google Fonts CSS is dynamic
+       (content varies per User-Agent), so a fixed SRI hash would break
+       font loading in browsers that receive a different response.
+       Subresource integrity is enforced for scripts via CSP 'self'. -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Palette — derived from logo bird ────────────────────────────────
+     * --charcoal  #1D3140   dark teal (outline, primary dark)
+     * --slate     #5A7A8C   slate-blue wings (accent, labels, links)
+     * --body      #3A4A56   readable paragraph text (WCAG AA on paper/white)
+     * --mist      #8EA5B2   metadata, eyebrows, secondary labels only
+     * --paper     #F5F3EE   background (cream belly)
+     * ─────────────────────────────────────────────────────────────────── */
+    :root {
+      --charcoal:  #1D3140;
+      --slate:     #5A7A8C;
+      --body:      #3A4A56;
+      --mist:      #8EA5B2;
+      --paper:     #F5F3EE;
+      --alt:       #ECEAE3;
+      --rule:      #DDD9D0;
+      --white:     #FFFFFF;
+      --hero-bg:   #0D1820;
+      --exited:         #2D6A4F;
+      --exited-bg:      #D8F3E8;
+      --validation:     #92670A;
+      --validation-bg:  #FEF3C7;
+      --building:       #1D4ED8;
+      --building-bg:    #DBEAFE;
+      --scaling:        #6B21A8;
+      --scaling-bg:     #F3E8FF;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      color: var(--charcoal);
+      background: var(--paper);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Skip to content ────────────────────────────────────────────── */
+    .skip-link {
+      position: absolute; top: -100px; left: 1rem; z-index: 9999;
+      background: var(--charcoal); color: var(--white);
+      padding: .55rem 1.1rem; border-radius: 6px;
+      font-size: .875rem; font-weight: 600; text-decoration: none;
+      transition: top .15s;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* ── NAV ──────────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: transparent;
+      transition: background .35s, box-shadow .35s, border-color .35s;
+      border-bottom: 1px solid transparent;
+    }
+    nav.scrolled {
+      background: rgba(245,243,238,.96);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom-color: var(--rule);
+      box-shadow: 0 2px 24px rgba(0,0,0,.06);
+    }
+    .nav-inner {
+      max-width: 1120px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: .85rem 2rem;
+    }
+    .nav-logo { display: flex; align-items: center; gap: .65rem; text-decoration: none; flex-shrink: 0; }
+    .nav-logo-img {
+      height: 32px; width: auto; border-radius: 7px;
+    }
+    .nav-logo-name {
+      font-family: 'Cormorant', serif; font-weight: 600;
+      font-size: 1.08rem; letter-spacing: -.01em;
+      color: var(--white); transition: color .35s;
+    }
+    nav.scrolled .nav-logo-name { color: var(--charcoal); }
+    .nav-right { display: flex; align-items: center; gap: 1.75rem; }
+    .nav-links { display: flex; gap: 1.75rem; align-items: center; list-style: none; }
+    .nav-links a {
+      font-size: .84rem; font-weight: 500;
+      color: rgba(255,255,255,.62); text-decoration: none; transition: color .25s;
+    }
+    nav.scrolled .nav-links a { color: var(--mist); }
+    .nav-links a:hover { color: var(--white); }
+    nav.scrolled .nav-links a:hover { color: var(--charcoal); }
+    .nav-linkedin {
+      display: flex; align-items: center;
+      color: rgba(255,255,255,.5); transition: color .25s; flex-shrink: 0;
+    }
+    nav.scrolled .nav-linkedin { color: var(--mist); }
+    .nav-linkedin:hover { color: var(--white); }
+    nav.scrolled .nav-linkedin:hover { color: var(--charcoal); }
+    .nav-linkedin svg { width: 16px; height: 16px; }
+    .lang-btn {
+      font-size: .78rem; font-weight: 600; letter-spacing: .06em;
+      color: rgba(255,255,255,.52); background: none;
+      border: 1px solid rgba(255,255,255,.22); border-radius: 4px;
+      padding: .28rem .65rem; cursor: pointer;
+      transition: border-color .25s, color .25s; font-family: 'Outfit', sans-serif;
+    }
+    nav.scrolled .lang-btn { color: var(--mist); border-color: var(--rule); }
+    .lang-btn:hover { border-color: rgba(255,255,255,.55); color: var(--white); }
+    nav.scrolled .lang-btn:hover { border-color: var(--slate); color: var(--slate); }
+    .nav-cta {
+      font-size: .875rem; font-weight: 600; color: var(--charcoal);
+      background: var(--white); padding: .5rem 1.25rem; border-radius: 6px;
+      text-decoration: none; transition: background .2s, color .2s, transform .15s; white-space: nowrap;
+    }
+    nav.scrolled .nav-cta { background: var(--charcoal); color: var(--white); }
+    .nav-cta:hover { transform: translateY(-1px); opacity: .9; }
+    .mobile-btn { display: none; background: none; border: none; cursor: pointer; padding: .4rem; }
+    .mobile-btn span { display: block; width: 22px; height: 2px; background: var(--white); margin: 5px 0; transition: background .35s; }
+    nav.scrolled .mobile-btn span { background: var(--charcoal); }
+
+    /* ── Shared ───────────────────────────────────────────────────────── */
+    .container { max-width: 1120px; margin: 0 auto; }
+    .s-eyebrow {
+      font-size: .72rem; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--slate); margin-bottom: .7rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .s-eyebrow::before { content: ''; width: 16px; height: 1.5px; background: var(--slate); }
+    .s-title {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(1.85rem, 3.5vw, 2.6rem);
+      font-weight: 600; letter-spacing: -.02em; line-height: 1.12;
+      color: var(--charcoal); margin-bottom: .9rem;
+    }
+    .s-sub { font-size: 1rem; color: var(--body); line-height: 1.75; font-weight: 300; }
+
+    /* ── Hero ────────────────────────────────────────────────────────── */
+    .hero {
+      background: var(--hero-bg); padding: 11.5rem 2rem 8.5rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 65% 55% at 80% 50%, rgba(90,122,140,.12) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    .hero-watermark {
+      position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+      width: 420px; height: 420px; opacity: .04; pointer-events: none;
+      background: url('assets/logo.png') center/contain no-repeat;
+      filter: brightness(0) invert(1);
+    }
+    .hero-inner { max-width: 740px; position: relative; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .55rem;
+      font-size: .72rem; font-weight: 600; letter-spacing: .15em;
+      text-transform: uppercase; color: rgba(142,165,178,.65); margin-bottom: 1.6rem;
+    }
+    .hero-eyebrow::before { content: ''; width: 20px; height: 1px; background: rgba(142,165,178,.45); }
+    .hero h1 {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(3.2rem, 7vw, 5.2rem);
+      font-weight: 500; line-height: 1.04; letter-spacing: -.028em;
+      color: var(--white); margin-bottom: 1.75rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--mist); }
+    .hero h1 .h1-l1 { display: block; margin-bottom: 0.28em; }
+    .hero-sub {
+      font-size: 1.08rem; color: rgba(255,255,255,.55);
+      line-height: 1.75; font-weight: 300; max-width: 520px; margin-bottom: 2.75rem;
+    }
+    .hero-ctas { display: flex; gap: .9rem; flex-wrap: wrap; }
+    .btn-light {
+      display: inline-block; padding: .82rem 1.75rem;
+      background: var(--white); color: var(--charcoal);
+      font-weight: 600; font-size: .95rem; border-radius: 6px;
+      text-decoration: none; transition: transform .15s, box-shadow .2s; font-family: 'Outfit', sans-serif;
+    }
+    .btn-light:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(0,0,0,.28); }
+    .btn-ghost-light {
+      display: inline-block; padding: .82rem 1.75rem; background: transparent;
+      color: rgba(255,255,255,.65); font-weight: 500; font-size: .95rem;
+      border: 1px solid rgba(255,255,255,.2); border-radius: 6px;
+      text-decoration: none; transition: border-color .2s, color .2s;
+    }
+    .btn-ghost-light:hover { border-color: rgba(255,255,255,.45); color: var(--white); }
+
+    /* ── Statement ───────────────────────────────────────────────────── */
+    .statement { background: var(--white); padding: 10rem 2rem; text-align: center; }
+    .statement-inner { max-width: 800px; margin: 0 auto; }
+    .statement-label {
+      font-size: .72rem; font-weight: 600; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--mist); margin-bottom: 2rem;
+    }
+    .statement h2 {
+      font-family: 'Cormorant', serif; font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+      font-weight: 500; font-style: italic; line-height: 1.14;
+      color: var(--charcoal); letter-spacing: -.02em; margin-bottom: 2rem;
+    }
+    .statement-body {
+      font-size: 1.05rem; color: var(--body); line-height: 1.85; font-weight: 300;
+      max-width: 640px; margin: 0 auto;
+    }
+    .statement-body strong { color: var(--charcoal); font-weight: 500; }
+
+    /* ── Approach ────────────────────────────────────────────────────── */
+    .approach { background: var(--alt); padding: 7rem 2rem; }
+    .approach-inner { max-width: 780px; }
+    .approach-body p { font-size: 1rem; color: var(--body); line-height: 1.9; font-weight: 300; margin-bottom: 1.35rem; }
+    .approach-body p:last-child { margin-bottom: 0; }
+    .approach-body p strong { color: var(--charcoal); font-weight: 500; }
+
+    /* ── Phases ──────────────────────────────────────────────────────── */
+    .phases { background: var(--paper); padding: 7rem 2rem; }
+    .phases-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--rule); border-radius: 12px;
+      overflow: hidden; margin-top: 3rem;
+    }
+    .phase { padding: 2.25rem 2rem; border-right: 1px solid var(--rule); }
+    .phase:last-child { border-right: none; }
+    .phase-num {
+      font-family: 'Cormorant', serif; font-size: 3.8rem; font-weight: 300;
+      color: var(--rule); line-height: 1; margin-bottom: .7rem; transition: color .3s;
+    }
+    .phase:hover .phase-num { color: var(--slate); }
+    .phase-name { font-family: 'Cormorant', serif; font-size: 1.25rem; font-weight: 600; color: var(--charcoal); margin-bottom: .6rem; }
+    .phase-intent {
+      font-size: .88rem; color: var(--charcoal); font-weight: 400;
+      line-height: 1.6; margin-bottom: 1rem; padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .phase-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .phase-list li { font-size: .82rem; color: var(--body); padding-left: .9rem; position: relative; line-height: 1.5; }
+    .phase-list li::before {
+      content: ''; position: absolute; left: 0; top: .54em;
+      width: 3px; height: 3px; border-radius: 50%; background: var(--slate); opacity: .7;
+    }
+
+    /* ── Portfolio ───────────────────────────────────────────────────── */
+    .portfolio-section { background: var(--alt); padding: 7rem 2rem; }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .port-card {
+      background: var(--white); border: 1px solid var(--rule);
+      border-radius: 12px; padding: 1.9rem; transition: box-shadow .2s, transform .2s;
+    }
+    .port-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.07); transform: translateY(-2px); }
+    .port-card-top {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--rule);
+    }
+    .port-logo { height: 36px; max-width: 140px; display: flex; align-items: center; }
+    .port-logo img { height: 100%; width: auto; object-fit: contain; }
+    .port-logo-ph {
+      height: 36px; width: 80px; background: var(--alt); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .62rem; font-weight: 700; letter-spacing: .08em; color: var(--mist);
+    }
+    .port-badge {
+      font-size: .68rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; padding: .22rem .7rem; border-radius: 20px; white-space: nowrap;
+    }
+    .port-badge.active     { color: var(--slate);      background: var(--alt); }
+    .port-badge.exited     { color: var(--exited);     background: var(--exited-bg); }
+    .port-badge.stealth    { color: var(--mist);       background: var(--alt); }
+    .port-badge.validation { color: var(--validation); background: var(--validation-bg); }
+    .port-badge.building   { color: var(--building);   background: var(--building-bg); }
+    .port-badge.scaling    { color: var(--scaling);    background: var(--scaling-bg); }
+    .port-name { font-family: 'Cormorant', serif; font-size: 1.35rem; font-weight: 600; color: var(--charcoal); margin-bottom: .45rem; }
+    .port-desc { font-size: .875rem; color: var(--body); line-height: 1.72; margin-bottom: 1.1rem; }
+    .port-meta { display: flex; gap: 1.25rem; flex-wrap: wrap; margin-bottom: .85rem; }
+    .port-tag { font-size: .72rem; font-weight: 500; color: var(--slate); letter-spacing: .04em; }
+    .port-link {
+      font-size: .83rem; font-weight: 500; color: var(--slate);
+      text-decoration: none; display: inline-flex; align-items: center; gap: .3rem; transition: color .2s;
+    }
+    .port-link:hover { color: var(--charcoal); }
+    .port-investing {
+      background: var(--paper); border: 1px dashed var(--rule);
+      border-radius: 12px; padding: 2.25rem 1.9rem;
+      display: flex; flex-direction: column; justify-content: center; gap: .9rem;
+    }
+    .port-investing-label {
+      font-size: .7rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--mist);
+    }
+    .port-investing-headline {
+      font-family: 'Cormorant', serif; font-size: 1.35rem; font-weight: 600;
+      color: var(--charcoal); line-height: 1.3;
+    }
+    .port-investing p { font-size: .88rem; color: var(--body); line-height: 1.72; }
+    .port-investing-cta {
+      font-size: .83rem; font-weight: 500; color: var(--slate);
+      text-decoration: none; display: inline-flex; align-items: center; gap: .3rem;
+      transition: color .2s; margin-top: .35rem;
+    }
+    .port-investing-cta:hover { color: var(--charcoal); }
+
+    /* ── Investment thesis ───────────────────────────────────────────── */
+    .investment { background: var(--paper); padding: 7rem 2rem; }
+    .investment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem; align-items: start; margin-top: 3rem; }
+    .thesis-items { display: flex; flex-direction: column; gap: .85rem; }
+    .t-row {
+      display: grid; grid-template-columns: 72px 1fr; gap: .75rem; align-items: start;
+      background: var(--white); border: 1px solid var(--rule); border-radius: 8px; padding: 1rem 1.1rem;
+    }
+    .t-label { font-size: .7rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--slate); padding-top: .22em; }
+    .t-value { font-size: .88rem; color: var(--body); line-height: 1.6; }
+    .t-value strong { color: var(--charcoal); display: block; font-weight: 500; margin-bottom: .12rem; }
+    .model-side h3 { font-family: 'Cormorant', serif; font-size: 1.3rem; font-weight: 600; color: var(--charcoal); margin-bottom: .9rem; }
+    .model-side p { font-size: .92rem; color: var(--body); line-height: 1.82; font-weight: 300; margin-bottom: .9rem; }
+    .align-block { border-left: 2.5px solid var(--slate); padding: 1rem 1.3rem; margin-top: 1.5rem; }
+    .align-block p { font-size: .9rem; color: var(--charcoal); line-height: 1.72; font-weight: 400; margin: 0; }
+
+    /* ── Contact ─────────────────────────────────────────────────────── */
+    .contact { background: var(--charcoal); padding: 8rem 2rem; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 380px; gap: 5rem; align-items: center; }
+    .contact-left .s-eyebrow { color: rgba(142,165,178,.6); }
+    .contact-left .s-eyebrow::before { background: rgba(142,165,178,.35); }
+    .contact-left .s-title { color: var(--white); max-width: 440px; }
+    .contact-sub { font-size: 1rem; color: rgba(255,255,255,.55); line-height: 1.75; font-weight: 300; max-width: 420px; margin-bottom: 2.5rem; }
+    .contact-ctas { display: flex; gap: 1.1rem; align-items: center; flex-wrap: wrap; }
+    .btn-white {
+      display: inline-block; padding: .88rem 2rem; background: var(--white); color: var(--charcoal);
+      font-weight: 600; font-size: .975rem; border-radius: 6px; text-decoration: none;
+      transition: transform .15s, box-shadow .2s; font-family: 'Outfit', sans-serif;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.24); }
+    /* ① Email link — href and display text injected by JS, never in HTML source */
+    .contact-email {
+      font-size: .875rem; color: rgba(255,255,255,.45); cursor: pointer;
+      border-bottom: 1px solid rgba(255,255,255,.18); padding-bottom: .1rem;
+      transition: color .2s, border-color .2s; text-decoration: none;
+    }
+    .contact-email:hover { color: rgba(255,255,255,.78); border-color: rgba(255,255,255,.45); }
+    .expect-card {
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px; padding: 1.75rem;
+    }
+    .expect-card-label {
+      font-size: .7rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: rgba(142,165,178,.55); margin-bottom: 1.25rem;
+    }
+    .expect-list { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
+    .expect-list li { display: flex; gap: .75rem; align-items: flex-start; }
+    .expect-marker {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 1px solid rgba(142,165,178,.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: .08em;
+      font-size: .68rem; font-weight: 600; color: rgba(142,165,178,.6);
+    }
+    .expect-text { font-size: .875rem; color: rgba(255,255,255,.52); line-height: 1.6; }
+    .expect-text strong { color: rgba(255,255,255,.84); font-weight: 500; display: block; }
+
+    /* ── Footer ──────────────────────────────────────────────────────── */
+    footer { background: var(--paper); border-top: 1px solid var(--rule); padding: 3.5rem 2rem 2.5rem; }
+    .footer-inner { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.75rem; }
+    .footer-brand { display: flex; flex-direction: column; align-items: center; gap: .85rem; }
+    .footer-logo-img { height: 72px; width: auto; opacity: .75; border-radius: 16px; }
+    .footer-wordmark { font-family: 'Cormorant', serif; font-weight: 600; font-size: 1.55rem; letter-spacing: -.01em; color: var(--charcoal); }
+    .footer-tagline { font-size: .78rem; color: var(--mist); letter-spacing: .06em; font-weight: 300; }
+    .footer-links { display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { font-size: .8rem; color: var(--body); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--charcoal); }
+    .footer-links .sep { color: var(--rule); }
+    .footer-linkedin { display: flex; align-items: center; gap: .35rem; font-size: .8rem; color: var(--body); text-decoration: none; transition: color .2s; }
+    .footer-linkedin:hover { color: var(--charcoal); }
+    .footer-linkedin svg { width: 14px; height: 14px; }
+    /* ① Footer email — injected by JS */
+    .footer-email { font-size: .8rem; color: var(--body); text-decoration: none; cursor: pointer; transition: color .2s; }
+    .footer-email:hover { color: var(--charcoal); }
+    .footer-legal { font-size: .73rem; color: var(--mist); text-align: center; line-height: 1.7; }
+
+    /* ── Sticky mobile CTA ───────────────────────────────────────────── */
+    .sticky-cta {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 99; background: rgba(245,243,238,.96);
+      backdrop-filter: blur(12px); border-top: 1px solid var(--rule); padding: .7rem 1.5rem;
+    }
+    .sticky-cta a {
+      display: block; width: 100%; padding: .78rem; background: var(--charcoal); color: var(--white);
+      font-weight: 600; font-size: .93rem; border-radius: 7px; text-decoration: none; text-align: center;
+    }
+
+    /* ── Animations ──────────────────────────────────────────────────── */
+    .fade-up { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ──────────────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .investment-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .contact-grid    { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    @media (max-width: 768px) {
+      .hero            { padding: 9.5rem 1.5rem 5.5rem; }
+      .hero-watermark  { display: none; }
+      .statement       { padding: 6rem 1.5rem; }
+      .approach, .phases, .portfolio-section,
+      .investment, .contact { padding: 4.5rem 1.5rem; }
+      .nav-links       { display: none; }
+      .nav-links.open  {
+        display: flex; flex-direction: column;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: var(--paper); border-bottom: 1px solid var(--rule);
+        padding: 1.4rem 2rem; gap: 1.2rem;
+      }
+      .nav-links.open a { color: var(--body); }
+      .mobile-btn   { display: block; }
+      .phases-grid  { grid-template-columns: 1fr; }
+      .phase        { border-right: none; border-bottom: 1px solid var(--rule); }
+      .phase:last-child { border-bottom: none; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      footer        { padding-bottom: 5rem; }
+      .sticky-cta   { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+<a class="skip-link" href="#approach"
+   data-en="Skip to content" data-fr="Aller au contenu">Skip to content</a>
+
+<!-- NAV ──────────────────────────────────────────────────────────────── -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="assets/logo.png" alt="Two Jay Ventures" class="nav-logo-img">
+      <span class="nav-logo-name">Two Jay Ventures</span>
+    </a>
+
+    <button class="mobile-btn" id="mobileBtn" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-right">
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="#approach"     data-en="Approach"     data-fr="Approche">Approach</a></li>
+        <li><a href="#how-we-build" data-en="How We Build" data-fr="Comment nous construisons">How We Build</a></li>
+        <li><a href="#portfolio"    data-en="Portfolio"    data-fr="Portefeuille">Portfolio</a></li>
+        <li><a href="#investment"   data-en="Invest"       data-fr="Investir">Invest</a></li>
+        <li><a href="#contact"      data-en="Contact"      data-fr="Contact">Contact</a></li>
+      </ul>
+      <!-- ④ rel="noopener noreferrer" on all external links -->
+      <a href="https://www.linkedin.com/company/two-jay-ventures" target="_blank" rel="noopener noreferrer"
+         class="nav-linkedin" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <!-- ② lang toggle — no inline onclick, bound via addEventListener in script -->
+      <button class="lang-btn" id="langBtn">FR</button>
+      <!-- ⑥ cal.com URL injected by JS — no hardcoded URL in HTML source -->
+      <a href="#" class="nav-cta js-cal"
+         data-en="Book a Call" data-fr="Organiser un appel">Book a Call</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO ─────────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-watermark" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-inner fade-up">
+      <div class="hero-eyebrow"
+           data-en="Pre-Seed · Technology · Canada"
+           data-fr="Pré-amorçage · Technologie · Canada">
+        Pre-Seed · Technology · Canada
+      </div>
+      <h1 data-en="<span class='h1-l1'>Investing,</span><em>And building,</em><br>with you."
+          data-fr="<span class='h1-l1'>Investir,</span><em>Et bâtir,</em><br>avec vous.">
+        <span class="h1-l1">Investing,</span><em>And building,</em><br>with you.
+      </h1>
+      <p class="hero-sub"
+         data-en="Operator-investors who have been in the seat. Capital and deep operational expertise — one package, fully aligned with your success."
+         data-fr="Investisseurs-opérateurs qui ont été dans le siège. Capital et expertise opérationnelle profonde — un seul package, entièrement aligné sur votre succès.">
+        Operator-investors who have been in the seat. Capital and deep operational expertise — one package, fully aligned with your success.
+      </p>
+      <div class="hero-ctas">
+        <!-- ⑥ Cal links injected by JS -->
+        <a href="#" class="btn-light js-cal"
+           data-en="Book a discovery call" data-fr="Organiser un appel découverte">
+          Book a discovery call
+        </a>
+        <a href="#approach" class="btn-ghost-light"
+           data-en="How we work" data-fr="Comment nous travaillons">
+          How we work
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATEMENT ────────────────────────────────────────────────────────── -->
+<section class="statement">
+  <div class="statement-inner fade-up">
+    <p class="statement-label"
+       data-en="The Two Jay Model" data-fr="Notre modèle">The Two Jay Model</p>
+    <h2 data-en="Our expertise is not a service.<br>It comes with the investment."
+        data-fr="Notre expertise n'est pas un service.<br>Elle est incluse dans l'investissement.">
+      Our expertise is not a service.<br>It comes with the investment.
+    </h2>
+    <p class="statement-body"
+       data-en="Most incubators, accelerators, and consultant charge founders for operational support — fees, retainers, advisory equity — on top of their stake. We believe that model creates a conflict. <strong>When we invest, we work alongside you at no additional cost.</strong> Our return depends entirely on yours."
+       data-fr="La plupart des incubateurs, accélérateurs et consultants facturent séparément leur soutien opérationnel — frais, mandats, equity consultatif — en plus de leur participation. Nous croyons que ce modèle crée un conflit. <strong>Quand nous investissons, nous travaillons à vos côtés sans frais supplémentaires.</strong> Notre rendement dépend entièrement du vôtre.">
+      Most incubators, accelerators, and consultant charge founders for operational support — fees, retainers, advisory equity — on top of their stake. We believe that model creates a conflict. <strong>When we invest, we work alongside you at no additional cost.</strong> Our return depends entirely on yours.
+    </p>
+  </div>
+</section>
+
+<!-- APPROACH ─────────────────────────────────────────────────────────── -->
+<section class="approach" id="approach">
+  <div class="container">
+    <div class="fade-up">
+      <div class="s-eyebrow" data-en="Our Approach" data-fr="Notre approche">Our Approach</div>
+      <h2 class="s-title"
+          data-en="By builders, for builders."
+          data-fr="Par des bâtisseurs, pour des bâtisseurs.">
+        By builders, for builders.
+      </h2>
+    </div>
+    <div class="approach-inner fade-up">
+      <div class="approach-body">
+        <p data-en="We spent over a decade building inside technology companies, accountable for shipping real products to real users with constrained budgets and no margin for theory. Across SaaS and fintech companies, we led product and engineering organizations from the first whiteboard to market launch: user validation, feature architecture, team structure, delivery, and the first paying customer."
+           data-fr="Nous avons passé plus d'une décennie à bâtir des entreprises technologiques, responsables de livrer de vrais produits à de vrais utilisateurs avec des budgets contraints et aucune marge pour la théorie. Dans des entreprises SaaS et fintech, nous avons dirigé des équipes produit et ingénierie du premier tableau blanc au lancement : validation utilisateur, architecture des fonctionnalités, structure d'équipe, livraison, et le premier client payant.">
+          We spent over a decade building inside technology companies, accountable for shipping real products to real users with constrained budgets and no margin for theory. Across SaaS and fintech companies, we led product and engineering organizations from the first whiteboard to market launch: user validation, feature architecture, team structure, delivery, and the first paying customer.
+        </p>
+        <p data-en="We drove fundraising processes, unlocked SR&amp;ED and IRAP programs, guided teams through OKRs, and built go-to-market strategies that generated the first revenue. We know which decisions matter at pre-seed and which are premature distractions. We have been the person sitting across from investors, across from early users, and across from an engineering team that needed direction."
+           data-fr="Nous avons piloté des processus de financement, débloqué les programmes RS&amp;DE et PARI, structuré des équipes autour des OKR, et construit des stratégies de mise en marché qui ont généré les premières revenus. Nous savons quelles décisions comptent au pré-amorçage et lesquelles sont des distractions prématurées. Nous avons été la personne assise en face des investisseurs, en face des premiers utilisateurs, et en face d'une équipe d'ingénierie qui avait besoin de direction.">
+          We drove fundraising processes, unlocked SR&amp;ED and IRAP programs, guided teams through OKRs, and built go-to-market strategies that generated the first revenue. We know which decisions matter at pre-seed and which are premature distractions. We have been the person sitting across from investors, across from early users, and across from an engineering team that needed direction.
+        </p>
+        <p data-en="That is not a consulting background repurposed for investing. It is a builder's perspective — and it is what we bring to every company we back."
+           data-fr="Ce n'est pas un parcours de consultant réorienté vers l'investissement. C'est la perspective d'un bâtisseur — et c'est ce que nous apportons à chaque entreprise que nous soutenons.">
+          That is not a consulting background repurposed for investing. It is a builder's perspective — and it is what we bring to every company we back.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW WE BUILD ─────────────────────────────────────────────────────── -->
+<section class="phases" id="how-we-build">
+  <div class="container">
+    <div class="fade-up">
+      <div class="s-eyebrow" data-en="How We Build" data-fr="Comment nous construisons">How We Build</div>
+      <h2 class="s-title"
+          data-en="From first idea to early revenue"
+          data-fr="De la première idée aux premières revenus">
+        From first idea to early revenue
+      </h2>
+    </div>
+    <div class="phases-grid fade-up">
+      <div class="phase">
+        <div class="phase-num">01</div>
+        <div class="phase-name" data-en="Validate" data-fr="Valider">Validate</div>
+        <p class="phase-intent"
+           data-en="We build the case before committing capital — and help founders pressure-test it."
+           data-fr="Nous construisons le dossier avant d'engager du capital — et aidons les fondateurs à le mettre à l'épreuve.">
+          We build the case before committing capital — and help founders pressure-test it.
+        </p>
+        <ul class="phase-list">
+          <li data-en="Structure the pitch and value proposition" data-fr="Structurer le pitch et la proposition de valeur">Structure the pitch and value proposition</li>
+          <li data-en="Run user interviews and market validation" data-fr="Conduire des entretiens utilisateurs et la validation marché">Run user interviews and market validation</li>
+          <li data-en="Assess compliance and legal constraints" data-fr="Évaluer les contraintes légales et de conformité">Assess compliance and legal constraints</li>
+          <li data-en="Define the path to a first paying customer" data-fr="Définir le chemin vers le premier client payant">Define the path to a first paying customer</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-num">02</div>
+        <div class="phase-name" data-en="Build" data-fr="Construire">Build</div>
+        <p class="phase-intent"
+           data-en="We lead product and engineering to ship — with founder-level urgency."
+           data-fr="Nous dirigeons produit et ingénierie pour livrer — avec l'urgence d'un fondateur.">
+          We lead product and engineering to ship — with founder-level urgency.
+        </p>
+        <ul class="phase-list">
+          <li data-en="Design user journey and feature architecture" data-fr="Concevoir le parcours utilisateur et l'architecture des fonctionnalités">Design user journey and feature architecture</li>
+          <li data-en="Deliver proof of concept" data-fr="Livrer une preuve de concept">Deliver proof of concept</li>
+          <li data-en="Deliver market-ready MVP" data-fr="Livrer un MVP prêt pour le marché">Deliver market-ready MVP</li>
+          <li data-en="Build early team and processes" data-fr="Construire l'équipe initiale et les processus">Build early team and processes</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-num">03</div>
+        <div class="phase-name" data-en="Scale" data-fr="Scaler">Scale</div>
+        <p class="phase-intent"
+           data-en="Product-market fit is a moving target. We keep the team aligned and funded."
+           data-fr="L'adéquation produit-marché est une cible mobile. Nous gardons l'équipe alignée et financée.">
+          Product-market fit is a moving target. We keep the team aligned and funded.
+        </p>
+        <ul class="phase-list">
+          <li data-en="Define product vision and OKR-driven roadmap" data-fr="Définir la vision produit et la feuille de route par OKR">Define product vision and OKR-driven roadmap</li>
+          <li data-en="Build GTM strategy and drive 0-to-1 growth" data-fr="Construire la stratégie GTM et piloter la croissance 0-to-1">Build GTM strategy and drive 0-to-1 growth</li>
+          <li data-en="Support funding rounds alongside lead investors" data-fr="Soutenir les tours de financement aux côtés des investisseurs principaux">Support funding rounds alongside lead investors</li>
+          <li data-en="Unlock SR&amp;ED, IRAP, and government programs" data-fr="Débloquer RS&amp;DE, PARI et programmes gouvernementaux">Unlock SR&amp;ED, IRAP, and government programs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO ────────────────────────────────────────────────────────── -->
+<section class="portfolio-section" id="portfolio">
+  <div class="container">
+    <div class="fade-up">
+      <div class="s-eyebrow" data-en="Portfolio" data-fr="Portefeuille">Portfolio</div>
+      <h2 class="s-title"
+          data-en="Founders we back"
+          data-fr="Fondateurs que nous soutenons">
+        Founders we back
+      </h2>
+      <p class="s-sub" style="margin-bottom:0"
+         data-en="Early-stage technology companies where we are invested and involved."
+         data-fr="Des entreprises technologiques en phase précoce où nous sommes investis et impliqués.">
+        Early-stage technology companies where we are invested and involved.
+      </p>
+    </div>
+    <div class="portfolio-grid fade-up">
+
+      <!-- Card 1: Exited -->
+      <div class="port-card">
+        <div class="port-card-top">
+          <div class="port-logo"><img src="assets/lexop.png" alt="Lexop"></div>
+          <span class="port-badge exited" data-en="Exited" data-fr="Sortie">Exited</span>
+        </div>
+        <div class="port-name">Lexop (exited)</div>
+        <p class="port-desc"
+           data-en="Lexop helped organizations automate and scale their collections operations, significantly improving their self-cure rates and cash flow."
+           data-fr="Lexop aidait les organisations à automatiser et optimiser leurs opérations de recouvrement, améliorant significativement leurs taux de résolution et leurs flux de trésorerie.">
+          Lexop helped organizations automate and scale their collections operations, significantly improving their self-cure rates and cash flow.
+        </p>
+        <div class="port-meta">
+          <span class="port-tag">Fintech</span>
+          <span class="port-tag">2023</span>
+        </div>
+        <a href="https://www.lexop.com" class="port-link" target="_blank" rel="noopener noreferrer" data-en="Learn more →" data-fr="En savoir plus →">Learn more →</a>
+      </div>
+
+      <!-- Card 2: Current -->
+      <div class="port-card">
+        <div class="port-card-top">
+          <div class="port-logo"><img src="assets/morphcast.png" alt="Morphcast"></div>
+          <span class="port-badge validation" data-en="Validation" data-fr="Validation">Validation</span>
+        </div>
+        <div class="port-name">Morphcast</div>
+        <p class="port-desc"
+           data-en="Morphcast restore the emotional signal in virtual interactions, improving engagement and outcomes in Telehealth, LMS and Digital Marketing."
+           data-fr="Morphcast restaure le signal émotionnel dans les interactions virtuelles, améliorant l'engagement et les résultats en télésanté, formation en ligne et marketing digital.">
+          Morphcast restore the emotional signal in virtual interactions, improving engagement and outcomes in Telehealth, LMS and Digital Marketing.
+        </p>
+        <div class="port-meta">
+          <span class="port-tag">AI</span>
+          <span class="port-tag">2025</span>
+        </div>
+        <a href="https://www.morphcast.com" class="port-link" target="_blank" rel="noopener noreferrer" data-en="Learn more →" data-fr="En savoir plus →">Learn more →</a>
+      </div>
+
+      <!-- Card 3: Stealth -->
+      <div class="port-card">
+        <div class="port-card-top">
+          <div class="port-logo"><div class="port-logo-ph">—</div></div>
+          <span class="port-badge stealth" data-en="In Stealth" data-fr="En mode furtif">In Stealth</span>
+        </div>
+        <div class="port-name" data-en="Undisclosed" data-fr="Non divulgué">Undisclosed</div>
+        <p class="port-desc"
+           data-en="Technology company currently in stealth mode. Announcement coming."
+           data-fr="Entreprise technologique actuellement en mode furtif. Annonce à venir.">
+          Technology company currently in stealth mode. Announcement coming.
+        </p>
+        <div class="port-meta">
+          <span class="port-tag">AI</span>
+          <span class="port-tag">2026</span>
+        </div>
+      </div>
+
+      <!-- Actively investing panel -->
+      <div class="port-investing">
+        <p class="port-investing-label"
+           data-en="Actively Investing" data-fr="En cours d'investissement">Actively Investing</p>
+        <p class="port-investing-headline"
+           data-en="Looking for pragmatic builders."
+           data-fr="À la recherche de bâtisseurs pragmatiques.">
+          Looking for pragmatic builders.
+        </p>
+        <p data-en="We back founders who are data-driven and practical — focused on building sustainable, responsible technology businesses rather than chasing trends."
+           data-fr="Nous soutenons des fondateurs pragmatiques et axés sur les données — concentrés sur la construction d'entreprises technologiques durables et responsables plutôt que de suivre les tendances.">
+          We back founders who are data-driven and practical — focused on building sustainable, responsible technology businesses rather than chasing trends.
+        </p>
+        <a href="#contact" class="port-investing-cta"
+           data-en="Tell us what you are building →" data-fr="Parlez-nous de ce que vous construisez →">
+          Tell us what you are building →
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- INVESTMENT THESIS ────────────────────────────────────────────────── -->
+<section class="investment" id="investment">
+  <div class="container">
+    <div class="fade-up">
+      <div class="s-eyebrow" data-en="Investment Thesis" data-fr="Thèse d'investissement">Investment Thesis</div>
+      <h2 class="s-title"
+          data-en="What we back and why"
+          data-fr="Ce que nous soutenons et pourquoi">
+        What we back and why
+      </h2>
+    </div>
+    <div class="investment-grid fade-up">
+      <div class="thesis-items">
+        <div class="t-row">
+          <span class="t-label" data-en="Stage" data-fr="Étape">Stage</span>
+          <div class="t-value">
+            <strong data-en="Pre-seed" data-fr="Pré-amorçage">Pre-seed</strong>
+            <span data-en="We invest at the highest-risk, highest-impact moment — before most investors will." data-fr="Nous investissons au moment de risque le plus élevé et d'impact le plus fort — avant que la plupart des investisseurs ne le fassent.">We invest at the highest-risk, highest-impact moment — before most investors will.</span>
+          </div>
+        </div>
+        <div class="t-row">
+          <span class="t-label" data-en="Sector" data-fr="Secteur">Sector</span>
+          <div class="t-value">
+            <strong data-en="Technology" data-fr="Technologie">Technology</strong>
+            <span data-en="Software, SaaS, fintech, and technology-centered business models." data-fr="Logiciel, SaaS, fintech et modèles d'affaires axés sur la technologie.">Software, SaaS, fintech, and technology-centered business models.</span>
+          </div>
+        </div>
+        <div class="t-row">
+          <span class="t-label" data-en="Geography" data-fr="Géographie">Geography</span>
+          <div class="t-value">
+            <strong data-en="Canada-first" data-fr="Canada en priorité">Canada-first</strong>
+            <span data-en="Rooted in the Canadian startup ecosystem. No hard borders." data-fr="Ancrés dans l'écosystème des startups canadiennes. Sans frontières rigides.">Rooted in the Canadian startup ecosystem. No hard borders.</span>
+          </div>
+        </div>
+        <div class="t-row">
+          <span class="t-label" data-en="Role" data-fr="Rôle">Role</span>
+          <div class="t-value">
+            <strong data-en="Follow-on investor" data-fr="Investisseur suiveur">Follow-on investor</strong>
+            <span data-en="We co-invest alongside lead investors in subsequent rounds, supporting our portfolio companies as they raise and scale." data-fr="Nous co-investissons aux côtés des investisseurs principaux lors des tours suivants, soutenant nos sociétés en portefeuille à mesure qu'elles lèvent des fonds et se développent.">We co-invest alongside lead investors in subsequent rounds, supporting our portfolio companies as they raise and scale.</span>
+          </div>
+        </div>
+      </div>
+      <div class="model-side">
+        <h3 data-en="What makes a fundable founder" data-fr="Ce qui rend un fondateur finançable">What makes a fundable founder</h3>
+        <p data-en="We back pragmatic, data-driven founders who are focused on building sustainable and responsible technology businesses. Not founders chasing valuation. Not founders who treat every problem as a nail for the AI hammer. Founders who understand their market, have talked to their users, and can tell you exactly what they know — and what they don't."
+           data-fr="Nous soutenons des fondateurs pragmatiques, axés sur les données, qui se concentrent sur la construction d'entreprises technologiques durables et responsables. Pas des fondateurs qui courent après la valorisation. Pas des fondateurs qui traitent chaque problème comme un clou pour le marteau de l'IA. Des fondateurs qui comprennent leur marché, ont parlé à leurs utilisateurs, et peuvent vous dire exactement ce qu'ils savent — et ce qu'ils ne savent pas.">
+          We back pragmatic, data-driven founders who are focused on building sustainable and responsible technology businesses. Not founders chasing valuation. Not founders who treat every problem as a nail for the AI hammer. Founders who understand their market, have talked to their users, and can tell you exactly what they know — and what they don't.
+        </p>
+        <p data-en="Prior startup experience is not a requirement. A clear-eyed understanding of the problem — and the intellectual honesty to admit what still needs to be proven — is."
+           data-fr="Une expérience préalable en startup n'est pas une exigence. Une compréhension lucide du problème — et l'honnêteté intellectuelle d'admettre ce qui reste encore à prouver — l'est.">
+          Prior startup experience is not a requirement. A clear-eyed understanding of the problem — and the intellectual honesty to admit what still needs to be proven — is.
+        </p>
+        <div class="align-block">
+          <p data-en="If you are building a technology product at the pre-seed stage and want a partner who is invested in your success — financially and operationally — we want to hear from you."
+             data-fr="Si vous construisez un produit technologique au stade pré-amorçage et souhaitez un partenaire investi dans votre succès — financièrement et opérationnellement — nous voulons avoir de vos nouvelles.">
+            If you are building a technology product at the pre-seed stage and want a partner who is invested in your success — financially and operationally — we want to hear from you.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT ──────────────────────────────────────────────────────────── -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid fade-up">
+      <div class="contact-left">
+        <div class="s-eyebrow" data-en="Get in Touch" data-fr="Contactez-nous">Get in Touch</div>
+        <h2 class="s-title"
+            data-en="Building something worth backing?"
+            data-fr="Vous construisez quelque chose qui mérite d'être soutenu ?">
+          Building something worth backing?
+        </h2>
+        <p class="contact-sub"
+           data-en="If you are a technology founder at the pre-seed stage — or approaching it — we would like to hear about what you are building."
+           data-fr="Si vous êtes un fondateur en technologie au stade pré-amorçage — ou proche de ce stade — nous souhaitons entendre parler de ce que vous construisez.">
+          If you are a technology founder at the pre-seed stage — or approaching it — we would like to hear about what you are building.
+        </p>
+        <div class="contact-ctas">
+          <!-- ⑥ Cal link injected by JS -->
+          <a href="#" class="btn-white js-cal"
+             data-en="Book a free discovery call" data-fr="Organiser un appel découverte gratuit">
+            Book a free discovery call
+          </a>
+          <!--
+            ① Email — href and display text injected by JS at runtime.
+               No plaintext email address exists anywhere in this HTML source.
+          -->
+          <a href="#" class="contact-email js-email"
+             data-en="contact us" data-fr="contactez-nous">contact us</a>
+        </div>
+      </div>
+      <div class="expect-card">
+        <p class="expect-card-label"
+           data-en="What to expect" data-fr="À quoi s'attendre">What to expect</p>
+        <ul class="expect-list">
+          <li>
+            <span class="expect-marker">1</span>
+            <span class="expect-text">
+              <strong data-en="30-minute conversation" data-fr="Conversation de 30 minutes">30-minute conversation</strong>
+              <span data-en="No deck required. Tell us what you are building and where you are stuck." data-fr="Aucun deck requis. Dites-nous ce que vous construisez et où vous êtes bloqué.">No deck required. Tell us what you are building and where you are stuck.</span>
+            </span>
+          </li>
+          <li>
+            <span class="expect-marker">2</span>
+            <span class="expect-text">
+              <strong data-en="Honest feedback" data-fr="Retour honnête">Honest feedback</strong>
+              <span data-en="We tell you directly what we think — whether it leads to an investment or not." data-fr="Nous vous disons directement ce que nous pensons — que cela mène à un investissement ou non.">We tell you directly what we think — whether it leads to an investment or not.</span>
+            </span>
+          </li>
+          <li>
+            <span class="expect-marker">3</span>
+            <span class="expect-text">
+              <strong data-en="Response within one week" data-fr="Réponse sous une semaine">Response within one week</strong>
+              <span data-en="If there is a fit, we move quickly. If not, we tell you why." data-fr="S'il y a une compatibilité, nous agissons rapidement. Sinon, nous vous expliquons pourquoi.">If there is a fit, we move quickly. If not, we tell you why.</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER ───────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="assets/logo.png" alt="Two Jay Ventures" class="footer-logo-img">
+      <span class="footer-wordmark">Two Jay Ventures</span>
+      <span class="footer-tagline"
+            data-en="Operator-investors. Pre-seed. Canada."
+            data-fr="Investisseurs-opérateurs. Pré-amorçage. Canada.">
+        Operator-investors. Pre-seed. Canada.
+      </span>
+    </div>
+    <div class="footer-links">
+      <a href="https://twojay.vc">twojay.vc</a>
+      <span class="sep">·</span>
+      <!-- ① Footer email — injected by JS -->
+      <a href="#" class="footer-email js-email">&#8203;</a>
+      <span class="sep">·</span>
+      <!-- ⑥ Cal link injected by JS -->
+      <a href="#" class="js-cal"
+         data-en="Book a call" data-fr="Organiser un appel">Book a call</a>
+      <span class="sep">·</span>
+      <a href="https://www.linkedin.com/company/two-jay-ventures" target="_blank" rel="noopener noreferrer"
+         class="footer-linkedin" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+    <p class="footer-legal">
+      &#169; 2026 Two Jay Ventures Inc. All rights reserved.
+      &nbsp;&#183;&nbsp;
+      <span data-en="Information submitted through this site is used solely to evaluate investment opportunities and is not shared with third parties."
+            data-fr="Les informations soumises via ce site sont utilisées uniquement pour évaluer les opportunités d'investissement et ne sont pas partagées avec des tiers.">
+        Information submitted through this site is used solely to evaluate investment opportunities and is not shared with third parties.
+      </span>
+    </p>
+  </div>
+</footer>
+
+<!-- Sticky mobile CTA — ⑥ injected by JS -->
+<div class="sticky-cta">
+  <a href="#" class="js-cal"
+     data-en="Book a free discovery call" data-fr="Organiser un appel découverte gratuit">
+    Book a free discovery call
+  </a>
+</div>
+
+<!--
+  ⑧ All JS in external main.js (IIFE, no globals).
+  ② All event binding via addEventListener — no inline handlers.
+  ① Email and cal.com URL assembled at runtime in main.js.
+  CSP script-src 'self' allows main.js; blocks all inline scripts.
+-->
+<script src="lib/main.js" defer></script>
+</body>
+</html>
