@@ -317,16 +317,23 @@
       display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--rule);
     }
-    .port-logo { height: 36px; max-width: 140px; display: flex; align-items: center; }
-    .port-logo img { height: 100%; width: auto; object-fit: contain; }
+    /* Logos sit in a fixed 36px slot but are NOT sized to fill it: each mark
+       is scaled so its cap height lands on ~19px, since the source artwork
+       has very different internal proportions (all-caps vs. descenders vs.
+       icon lockup). Sizes below are derived from measured cap heights. */
+    .port-logo { height: 36px; max-width: 170px; display: flex; align-items: center; }
+    .port-logo img { height: 20px; width: auto; max-width: 100%; object-fit: contain; }
+    .port-logo--lexop     img { height: 20px; }  /* tight-trimmed all-caps  */
+    .port-logo--morphcast img { height: 25px; }  /* ascender + descender    */
+    .port-logo--noomi     img { height: 21px; }  /* ~11% padding in viewBox */
     .port-logo-ph {
-      height: 36px; width: 80px; background: var(--alt); border-radius: 6px;
+      height: 24px; width: 72px; background: var(--alt); border-radius: 6px;
       display: flex; align-items: center; justify-content: center;
       font-size: .62rem; font-weight: 700; letter-spacing: .08em; color: var(--mist);
     }
     .port-logo-lia {
       font-family: 'Cormorant', serif; font-weight: 600;
-      font-size: 2rem; line-height: 1; letter-spacing: -.015em;
+      font-size: 1.85rem; line-height: 1; letter-spacing: -.015em;
       color: var(--charcoal);
     }
     .port-logo-lia .dot { color: var(--pre-seed); }
@@ -338,7 +345,7 @@
     }
     .port-logo .lw {
       font-family: 'Outfit', sans-serif; font-weight: 700;
-      font-size: 1.1rem; line-height: 1; letter-spacing: -.045em;
+      font-size: 1.3rem; line-height: 1; letter-spacing: -.045em;
       color: var(--charcoal);
     }
     .port-logo .lw .u { color: var(--slate); }
@@ -707,7 +714,7 @@
       <!-- Card 1: Lexop -->
       <div class="port-card">
         <div class="port-card-top">
-          <div class="port-logo"><img src="assets/lexop.png" alt="Lexop"></div>
+          <div class="port-logo port-logo--lexop"><img src="assets/lexop.png" alt="Lexop"></div>
           <span class="port-badge exited" data-en="Exited" data-fr="Sortie">Exited</span>
         </div>
         <div class="port-name">Lexop</div>
@@ -726,7 +733,7 @@
       <!-- Card 2: Morphcast -->
       <div class="port-card">
         <div class="port-card-top">
-          <div class="port-logo"><img src="assets/morphcast.png" alt="Morphcast"></div>
+          <div class="port-logo port-logo--morphcast"><img src="assets/morphcast.png" alt="Morphcast"></div>
           <span class="port-badge seed" data-en="Seed" data-fr="Seed">Seed</span>
         </div>
         <div class="port-name">Morphcast</div>
@@ -779,7 +786,26 @@
         <a href="https://www.usejarvis.dev/" class="port-link" target="_blank" rel="noopener noreferrer" data-en="Learn more →" data-fr="En savoir plus →">Learn more →</a>
       </div>
 
-      <!-- Card 5: Stealth -->
+      <!-- Card 5: Noomi -->
+      <div class="port-card">
+        <div class="port-card-top">
+          <div class="port-logo port-logo--noomi"><img src="assets/noomi.svg" alt="Noomi"></div>
+          <span class="port-badge pre-seed" data-en="Pre-Seed" data-fr="Pre-Seed">Pre-Seed</span>
+        </div>
+        <div class="port-name">Noomi</div>
+        <p class="port-desc"
+           data-en="Noomi is a Canadian nootropic gummy for ambitious professionals, delivering clinically dosed focus, memory and stress support with no caffeine or stimulants."
+           data-fr="Noomi est une gomme nootropique canadienne pour les professionnels ambitieux, offrant un soutien à la concentration, à la mémoire et au stress à doses cliniques, sans caféine ni stimulants.">
+          Noomi is a Canadian nootropic gummy for ambitious professionals, delivering clinically dosed focus, memory and stress support with no caffeine or stimulants.
+        </p>
+        <div class="port-meta">
+          <span class="port-tag" data-en="Consumer Health" data-fr="Santé grand public">Consumer Health</span>
+          <span class="port-tag">2026</span>
+        </div>
+        <a href="https://www.noomigummies.com" class="port-link" target="_blank" rel="noopener noreferrer" data-en="Learn more →" data-fr="En savoir plus →">Learn more →</a>
+      </div>
+
+      <!-- Card 6: Stealth -->
       <div class="port-card">
         <div class="port-card-top">
           <div class="port-logo"><div class="port-logo-ph">—</div></div>
