@@ -1,44 +1,37 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
   <!--
-    ③ Content Security Policy (meta tag — GitHub Pages cannot set HTTP headers).
-       Locks down allowed sources. 'unsafe-inline' on style-src is required for
-       the inline <style> block; use a nonce-based approach if moving to a
-       server that supports it. No 'unsafe-inline' on script-src.
+    Content Security Policy (meta tag — GitHub Pages cannot set HTTP headers).
+    'unsafe-inline' on style-src is required for the inline <style> block.
+    No 'unsafe-inline' on script-src: all JS lives in lib/main.js.
   -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; frame-src https://cal.com; base-uri 'self'; form-action 'none';">
 
-  <!--
-    ⑤ Robots — tells search engines not to index this file directly.
-       A robots.txt in the repo root is also required.
-  -->
   <meta name="robots" content="index, follow">
 
-  <title>Two Jay Ventures — Operator-Investors · Pre-Seed · Canada</title>
-  <meta name="description" content="Two Jay Ventures — Operator-investors backing pre-seed technology founders in Canada. Capital and deep operational expertise, one package.">
+  <title>Two Jay Ventures — Angel investing for pre-seed founders · Canada</title>
+  <meta name="description" content="Two Jay Ventures invests angel capital in pre-seed technology companies in Canada, then works inside them alongside a network of experienced operators. $10K–$50K first cheques, no fees.">
 
-  <!-- Canonical -->
   <link rel="canonical" href="https://twojay.vc">
 
-  <!-- Open Graph / social share -->
-  <meta property="og:title"        content="Two Jay Ventures — Operator-Investors · Pre-Seed · Canada">
-  <meta property="og:description"  content="Pre-seed capital, by builders, for builders. Operator-investors backing pre-seed technology founders in Canada.">
+  <meta property="og:title"        content="Two Jay Ventures — We invest early. Then we get to work.">
+  <meta property="og:description"  content="Angel capital for pre-seed technology founders in Canada, with experienced operators included and no fees.">
   <meta property="og:type"         content="website">
   <meta property="og:url"          content="https://twojay.vc">
-  <meta property="og:image"        content="https://twojay.vc/assets/og-image.svg">
+  <meta property="og:image"        content="https://twojay.vc/assets/og-image.png">
   <meta property="og:image:width"  content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card"        content="summary_large_image">
-  <meta name="twitter:title"       content="Two Jay Ventures — Operator-Investors · Pre-Seed · Canada">
-  <meta name="twitter:description" content="Pre-seed capital, by builders, for builders.">
-  <meta name="twitter:image"       content="https://twojay.vc/assets/og-image.svg">
+  <meta name="twitter:title"       content="Two Jay Ventures — We invest early. Then we get to work.">
+  <meta name="twitter:description" content="Angel capital for pre-seed technology founders in Canada, with experienced operators included.">
+  <meta name="twitter:image"       content="https://twojay.vc/assets/og-image.png">
 
-  <!-- JSON-LD structured data — email encoded as unicode escape (\u0040 = @) -->
+  <!-- JSON-LD structured data — no email: JSON parsers decode escapes, so an
+       address here would be harvestable. Contact goes through cal.com. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -46,983 +39,634 @@
     "name": "Two Jay Ventures",
     "url": "https://twojay.vc",
     "logo": "https://twojay.vc/assets/logo.png",
-    "description": "Operator-investors backing pre-seed technology founders in Canada.",
+    "description": "Angel investing in pre-seed technology companies in Canada, with experienced operators included.",
     "foundingDate": "2022",
+    "founder": { "@type": "Person", "name": "Jonathan Jenin" },
     "areaServed": "Canada",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "email": "startups\u0040twojay.vc",
-      "contactType": "investment inquiries"
-    },
     "sameAs": [
+      "https://www.linkedin.com/company/two-jay-ventures",
       "https://www.linkedin.com/in/jonathanjenin"
     ]
   }
   </script>
 
-  <!-- Favicon: circular crop baked into the PNG -->
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/favicon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Google Fonts SRI: not applicable. Google Fonts CSS is dynamic
-       (content varies per User-Agent), so a fixed SRI hash would break
-       font loading in browsers that receive a different response.
-       Subresource integrity is enforced for scripts via CSP 'self'. -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
 
-  <style>
-    /* ── Palette — derived from logo bird ────────────────────────────────
-     * --charcoal  #1D3140   dark teal (outline, primary dark)
-     * --slate     #5A7A8C   slate-blue wings (accent, labels, links)
-     * --body      #3A4A56   readable paragraph text (WCAG AA on paper/white)
-     * --mist      #8EA5B2   metadata, eyebrows, secondary labels only
-     * --paper     #F5F3EE   background (cream belly)
-     * ─────────────────────────────────────────────────────────────────── */
-    :root {
-      --charcoal:  #1D3140;
-      --slate:     #5A7A8C;
-      --body:      #3A4A56;
-      --mist:      #8EA5B2;
-      --paper:     #F5F3EE;
-      --alt:       #ECEAE3;
-      --rule:      #DDD9D0;
-      --white:     #FFFFFF;
-      --hero-bg:   #0D1820;
-      --exited:         #2D6A4F;
-      --exited-bg:      #D8F3E8;
-      --pre-seed:     #92670A;
-      --pre-seed-bg:  #FEF3C7;
-      --seed:       #1D4ED8;
-      --seed-bg:    #DBEAFE;
-      --series:        #6B21A8;
-      --series-bg:     #F3E8FF;
-    }
+<style>
+/* Layout: editorial single column on a 12-col grid, max 1200px. Hero pairs a
+   large headline with the "term sheet" card the jay perches on. One dark band
+   (network) breaks the page; everything else sits on the light ground. */
+:root {
+  --ground:   #F4F5F3;
+  --surface:  #FFFFFF;
+  --ink:      #0E1418;
+  --muted:    #58626B;
+  --rule:     #D9DDDD;
+  --accent:   #1F3BCC;   /* jay blue: the logo's slate pushed to cobalt */
+  --accent-ink: #FFFFFF;
+  --band:     #0C1420;   /* network band */
+  --band-ink: #E9EDF2;
+  --band-muted: #9AA6B4;
+  --band-rule: #233041;
+  --exit:     #1F6B48;  --exit-bg:  #DCEFE4;
+  --pre:      #7A5A0E;  --pre-bg:   #F3E9CC;
+  --logo-filter: grayscale(1) contrast(1.1);
+  --display: "Geist", "Helvetica Neue", Arial, sans-serif;
+  --body:    "Geist", "Helvetica Neue", Arial, sans-serif;
+  --mono:    "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --maxw: 1200px;
+  /* Jay mark inlined: masks are fetched with CORS, so a file URL fails from file:// */
+  --jay: url(data:image/png;base64,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);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground: #0D1115; --surface: #151B21; --ink: #EDF0F2; --muted: #9AA3AC;
+    --rule: #262E36; --accent: #8FA2FF; --accent-ink: #0D1115;
+    --band: #05080C; --band-ink: #E9EDF2; --band-muted: #8E9AA8; --band-rule: #1C2633;
+    --exit: #7FD3A6; --exit-bg: #16302A;
+    --pre: #E8C877; --pre-bg: #3A2F12;
+    --logo-filter: grayscale(1) invert(1) brightness(1.4);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #0D1115; --surface: #151B21; --ink: #EDF0F2; --muted: #9AA3AC;
+  --rule: #262E36; --accent: #8FA2FF; --accent-ink: #0D1115;
+  --band: #05080C; --band-ink: #E9EDF2; --band-muted: #8E9AA8; --band-rule: #1C2633;
+  --exit: #7FD3A6; --exit-bg: #16302A;
+  --pre: #E8C877; --pre-bg: #3A2F12;
+  --logo-filter: grayscale(1) invert(1) brightness(1.4);
+}
 
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; font-size: 16px; }
-    body {
-      font-family: 'Outfit', sans-serif;
-      color: var(--charcoal);
-      background: var(--paper);
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-    }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ground); color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; z-index: 60;
+  height: env(safe-area-inset-top, 0px); background: var(--ground);
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { text-wrap: balance; font-family: var(--display); }
 
-    /* ── Skip to content ────────────────────────────────────────────── */
-    .skip-link {
-      position: absolute; top: -100px; left: 1rem; z-index: 9999;
-      background: var(--charcoal); color: var(--white);
-      padding: .55rem 1.1rem; border-radius: 6px;
-      font-size: .875rem; font-weight: 600; text-decoration: none;
-      transition: top .15s;
-    }
-    .skip-link:focus { top: 1rem; }
+.wrap {
+  max-width: calc(var(--maxw) + 2 * 32px); margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px), 4vw);
+  padding-right: max(16px, env(safe-area-inset-right, 0px), 4vw);
+}
+.label {
+  font: 500 .75rem/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.mark {
+  display: inline-block; background: var(--accent);
+  -webkit-mask: var(--jay) center / contain no-repeat;
+          mask: var(--jay) center / contain no-repeat;
+  aspect-ratio: 329 / 360;
+}
 
-    /* ── NAV ──────────────────────────────────────────────────────────── */
-    nav {
-      position: fixed; top: 0; width: 100%; z-index: 100;
-      background: transparent;
-      transition: background .35s, box-shadow .35s, border-color .35s;
-      border-bottom: 1px solid transparent;
-    }
-    nav.scrolled {
-      background: rgba(245,243,238,.96);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      border-bottom-color: var(--rule);
-      box-shadow: 0 2px 24px rgba(0,0,0,.06);
-    }
-    .nav-inner {
-      max-width: 1120px; margin: 0 auto;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: .85rem 2rem;
-    }
-    .nav-logo { display: flex; align-items: center; gap: .65rem; text-decoration: none; flex-shrink: 0; }
-    .nav-logo-img {
-      height: 32px; width: auto; border-radius: 7px;
-    }
-    .nav-logo-name {
-      font-family: 'Cormorant', serif; font-weight: 600;
-      font-size: 1.08rem; letter-spacing: -.01em;
-      color: var(--white); transition: color .35s;
-    }
-    nav.scrolled .nav-logo-name { color: var(--charcoal); }
-    .nav-right { display: flex; align-items: center; gap: 1.75rem; }
-    .nav-links { display: flex; gap: 1.75rem; align-items: center; list-style: none; }
-    .nav-links a {
-      font-size: .84rem; font-weight: 500;
-      color: rgba(255,255,255,.62); text-decoration: none; transition: color .25s;
-    }
-    nav.scrolled .nav-links a { color: var(--mist); }
-    .nav-links a:hover { color: var(--white); }
-    nav.scrolled .nav-links a:hover { color: var(--charcoal); }
-    .nav-linkedin {
-      display: flex; align-items: center;
-      color: rgba(255,255,255,.5); transition: color .25s; flex-shrink: 0;
-    }
-    nav.scrolled .nav-linkedin { color: var(--mist); }
-    .nav-linkedin:hover { color: var(--white); }
-    nav.scrolled .nav-linkedin:hover { color: var(--charcoal); }
-    .nav-linkedin svg { width: 16px; height: 16px; }
-    .lang-btn {
-      font-size: .78rem; font-weight: 600; letter-spacing: .06em;
-      color: rgba(255,255,255,.52); background: none;
-      border: 1px solid rgba(255,255,255,.22); border-radius: 4px;
-      padding: .28rem .65rem; cursor: pointer;
-      transition: border-color .25s, color .25s; font-family: 'Outfit', sans-serif;
-    }
-    nav.scrolled .lang-btn { color: var(--mist); border-color: var(--rule); }
-    .lang-btn:hover { border-color: rgba(255,255,255,.55); color: var(--white); }
-    nav.scrolled .lang-btn:hover { border-color: var(--slate); color: var(--slate); }
-    .nav-cta {
-      font-size: .875rem; font-weight: 600; color: var(--charcoal);
-      background: var(--white); padding: .5rem 1.25rem; border-radius: 6px;
-      text-decoration: none; transition: background .2s, color .2s, transform .15s; white-space: nowrap;
-    }
-    nav.scrolled .nav-cta { background: var(--charcoal); color: var(--white); }
-    .nav-cta:hover { transform: translateY(-1px); opacity: .9; }
-    .mobile-btn { display: none; background: none; border: none; cursor: pointer; padding: .4rem; }
-    .mobile-btn span { display: block; width: 22px; height: 2px; background: var(--white); margin: 5px 0; transition: background .35s; }
-    nav.scrolled .mobile-btn span { background: var(--charcoal); }
+.skip-link {
+  position: absolute; top: -100px; left: 1rem; z-index: 100;
+  background: var(--ink); color: var(--ground); padding: .55rem 1rem; border-radius: 6px;
+  font-size: .875rem; font-weight: 600; text-decoration: none;
+}
+.skip-link:focus { top: 1rem; }
 
-    /* ── Shared ───────────────────────────────────────────────────────── */
-    .container { max-width: 1120px; margin: 0 auto; }
-    .s-eyebrow {
-      font-size: .72rem; font-weight: 600; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--slate); margin-bottom: .7rem;
-      display: flex; align-items: center; gap: .5rem;
-    }
-    .s-eyebrow::before { content: ''; width: 16px; height: 1.5px; background: var(--slate); }
-    .s-title {
-      font-family: 'Cormorant', serif;
-      font-size: clamp(1.85rem, 3.5vw, 2.6rem);
-      font-weight: 600; letter-spacing: -.02em; line-height: 1.12;
-      color: var(--charcoal); margin-bottom: .9rem;
-    }
-    .s-sub { font-size: 1rem; color: var(--body); line-height: 1.75; font-weight: 300; }
+/* ── Header ─────────────────────────────────────────────── */
+header {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+  background: color-mix(in srgb, var(--ground) 92%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding-block: .8rem; }
+.brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; font-weight: 600; letter-spacing: -.02em; }
+.brand .mark { width: 26px; }
+.nav-links { display: flex; gap: 1.6rem; list-style: none; font-size: .9rem; }
+.nav-links a { text-decoration: none; color: var(--muted); }
+.nav-links a:hover { color: var(--ink); }
+.nav-right { display: flex; align-items: center; gap: .75rem; }
+.lang {
+  font: 500 .75rem var(--mono); letter-spacing: .06em; color: var(--muted);
+  background: none; border: 1px solid var(--rule); border-radius: 6px; padding: .4rem .6rem; cursor: pointer;
+}
+.lang:hover { color: var(--ink); border-color: var(--muted); }
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font: 500 .95rem/1 var(--body); text-decoration: none; white-space: nowrap;
+  padding: .85rem 1.25rem; border-radius: 8px; border: 1px solid transparent;
+  transition: transform .15s ease, background .15s ease;
+}
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { transform: translateY(-1px); }
+.btn-quiet { border-color: var(--rule); color: var(--ink); }
+.btn-quiet:hover { border-color: var(--ink); }
+.btn-sm { padding: .6rem .95rem; font-size: .875rem; }
 
-    /* ── Hero ────────────────────────────────────────────────────────── */
-    .hero {
-      background: var(--hero-bg); padding: 11.5rem 2rem 8.5rem;
-      position: relative; overflow: hidden;
-    }
-    .hero::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse 65% 55% at 80% 50%, rgba(90,122,140,.12) 0%, transparent 100%);
-      pointer-events: none;
-    }
-    .hero-watermark {
-      position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
-      width: 420px; height: 420px; opacity: .04; pointer-events: none;
-      background: url('assets/logo.png') center/contain no-repeat;
-      filter: brightness(0) invert(1);
-    }
-    .hero-inner { max-width: 740px; position: relative; }
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: .55rem;
-      font-size: .72rem; font-weight: 600; letter-spacing: .15em;
-      text-transform: uppercase; color: rgba(142,165,178,.65); margin-bottom: 1.6rem;
-    }
-    .hero-eyebrow::before { content: ''; width: 20px; height: 1px; background: rgba(142,165,178,.45); }
-    .hero h1 {
-      font-family: 'Cormorant', serif;
-      font-size: clamp(3.2rem, 7vw, 5.2rem);
-      font-weight: 500; line-height: 1.04; letter-spacing: -.028em;
-      color: var(--white); margin-bottom: 1.75rem;
-    }
-    .hero h1 em { font-style: italic; color: var(--mist); }
-    .hero h1 .h1-l1 { display: inline; }
-    .hero-sub {
-      font-size: 1.08rem; color: rgba(255,255,255,.55);
-      line-height: 1.75; font-weight: 300; max-width: 520px; margin-bottom: 2.75rem;
-    }
-    .hero-ctas { display: flex; gap: .9rem; flex-wrap: wrap; }
-    .btn-light {
-      display: inline-block; padding: .82rem 1.75rem;
-      background: var(--white); color: var(--charcoal);
-      font-weight: 600; font-size: .95rem; border-radius: 6px;
-      text-decoration: none; transition: transform .15s, box-shadow .2s; font-family: 'Outfit', sans-serif;
-    }
-    .btn-light:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(0,0,0,.28); }
-    .btn-ghost-light {
-      display: inline-block; padding: .82rem 1.75rem; background: transparent;
-      color: rgba(255,255,255,.65); font-weight: 500; font-size: .95rem;
-      border: 1px solid rgba(255,255,255,.2); border-radius: 6px;
-      text-decoration: none; transition: border-color .2s, color .2s;
-    }
-    .btn-ghost-light:hover { border-color: rgba(255,255,255,.45); color: var(--white); }
+/* ── Hero ───────────────────────────────────────────────── */
+.hero { padding-block: clamp(3.5rem, 9vw, 7.5rem) clamp(3rem, 6vw, 5rem); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2.5rem, 6vw, 5rem); align-items: end; }
+.hero h1 {
+  font-size: clamp(2.6rem, 5.6vw, 5.1rem); font-weight: 600;
+  line-height: .96; letter-spacing: -.05em; margin-block: 1.4rem 1.75rem;
+}
+.hero h1 .accent { color: var(--accent); display: block; }
+.hero-sub { font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: var(--muted); max-width: 34em; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2.25rem; }
 
-    /* ── Statement ───────────────────────────────────────────────────── */
-    .statement { background: var(--white); padding: 10rem 2rem; text-align: center; }
-    .statement-inner { max-width: 800px; margin: 0 auto; }
-    .statement-label {
-      font-size: .72rem; font-weight: 600; letter-spacing: .15em;
-      text-transform: uppercase; color: var(--mist); margin-bottom: 2rem;
-    }
-    .statement h2 {
-      font-family: 'Cormorant', serif; font-size: clamp(2.6rem, 5.5vw, 4.2rem);
-      font-weight: 500; font-style: italic; line-height: 1.14;
-      color: var(--charcoal); letter-spacing: -.02em; margin-bottom: 2rem;
-    }
-    .statement-body {
-      font-size: 1.05rem; color: var(--body); line-height: 1.85; font-weight: 300;
-      max-width: 640px; margin: 0 auto;
-    }
-    .statement-body strong { color: var(--charcoal); font-weight: 500; }
+/* The jay's feet sit at 93.6% of the mark's width from its top; place them on
+   the card's top border and let the tail hang over the card. */
+.terms { position: relative; padding-top: 48px; --perch-w: 50px; }
+.terms .perch { position: absolute; z-index: 1; right: 28px; width: var(--perch-w); top: calc(48px + 1px - var(--perch-w) * .936); }
+.terms-card {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 12px;
+  padding: 1.4rem 1.5rem 1.2rem;
+}
+.terms-head { display: flex; justify-content: space-between; gap: 1rem; padding-bottom: .9rem; border-bottom: 1px solid var(--ink); }
+.terms dl { display: grid; }
+.terms .row {
+  display: flex; align-items: baseline; gap: .6rem; padding-block: .72rem;
+  border-bottom: 1px dashed var(--rule); font-size: .95rem;
+}
+.terms .row:last-child { border-bottom: 0; }
+.terms dt { font: 400 .8rem var(--mono); color: var(--muted); white-space: nowrap; }
+.terms .lead { flex: 1; border-bottom: 1px dotted var(--rule); transform: translateY(-4px); min-width: 1rem; }
+.terms dd { font-weight: 500; text-align: right; font-variant-numeric: tabular-nums; }
+.terms dd.zero { color: var(--accent); }
 
-    /* ── Approach ────────────────────────────────────────────────────── */
-    .approach { background: var(--alt); padding: 7rem 2rem; }
-    .approach-inner { max-width: 780px; }
-    .approach-body p { font-size: 1rem; color: var(--body); line-height: 1.9; font-weight: 300; margin-bottom: 1.35rem; }
-    .approach-body p:last-child { margin-bottom: 0; }
-    .approach-body p strong { color: var(--charcoal); font-weight: 500; }
+/* ── Logo strip ─────────────────────────────────────────── */
+.strip { border-block: 1px solid var(--rule); padding-block: 1.6rem; }
+.strip-inner { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem 2.5rem; flex-wrap: wrap; }
+.logos { display: flex; align-items: center; gap: 1.5rem 3rem; flex-wrap: wrap; list-style: none; }
+.logos img { height: 22px; width: auto; filter: var(--logo-filter); opacity: .8; }
+.logos .lw-lia { font: 500 1.6rem/1 Georgia, serif; letter-spacing: -.02em; opacity: .8; }
+.logos .lw-jarvis { display: flex; align-items: center; gap: .4rem; font-weight: 600; font-size: 1.2rem; letter-spacing: -.04em; opacity: .8; }
+.logos .lw-jarvis i { width: 20px; height: 20px; border: 2px solid currentColor; border-radius: 50% 5px 50% 50%; }
 
-    /* ── Phases ──────────────────────────────────────────────────────── */
-    .phases { background: var(--paper); padding: 7rem 2rem; }
-    .phases-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      border: 1px solid var(--rule); border-radius: 12px;
-      overflow: hidden; margin-top: 3rem;
-    }
-    .phase { padding: 2.25rem 2rem; border-right: 1px solid var(--rule); }
-    .phase:last-child { border-right: none; }
-    .phase-num {
-      font-family: 'Cormorant', serif; font-size: 3.8rem; font-weight: 300;
-      color: var(--rule); line-height: 1; margin-bottom: .7rem; transition: color .3s;
-    }
-    .phase:hover .phase-num { color: var(--slate); }
-    .phase-name { font-family: 'Cormorant', serif; font-size: 1.25rem; font-weight: 600; color: var(--charcoal); margin-bottom: .6rem; }
-    .phase-intent {
-      font-size: .88rem; color: var(--charcoal); font-weight: 400;
-      line-height: 1.6; margin-bottom: 1rem; padding-bottom: 1rem;
-      border-bottom: 1px solid var(--rule);
-    }
-    .phase-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
-    .phase-list li { font-size: .82rem; color: var(--body); padding-left: .9rem; position: relative; line-height: 1.5; }
-    .phase-list li::before {
-      content: ''; position: absolute; left: 0; top: .54em;
-      width: 3px; height: 3px; border-radius: 50%; background: var(--slate); opacity: .7;
-    }
+/* ── Sections ───────────────────────────────────────────── */
+section.block { padding-block: clamp(4.5rem, 9vw, 7.5rem); }
+.sec-head { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 1rem 3rem; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); align-items: start; }
+.sec-head h2 { font-size: clamp(2rem, 4.2vw, 3.25rem); font-weight: 600; line-height: 1.02; letter-spacing: -.04em; }
+.sec-head p { color: var(--muted); max-width: 36em; margin-top: .9rem; }
 
-    /* ── Portfolio ───────────────────────────────────────────────────── */
-    .portfolio-section { background: var(--alt); padding: 7rem 2rem; }
-    .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
-    .port-card {
-      background: var(--white); border: 1px solid var(--rule);
-      border-radius: 12px; padding: 1.9rem; transition: box-shadow .2s, transform .2s;
-    }
-    .port-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.07); transform: translateY(-2px); }
-    .port-card-top {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--rule);
-    }
-    /* Logos sit in a fixed 36px slot but are NOT sized to fill it: each mark
-       is scaled so its cap height lands on ~19px, since the source artwork
-       has very different internal proportions (all-caps vs. descenders vs.
-       icon lockup). Sizes below are derived from measured cap heights. */
-    .port-logo { height: 36px; max-width: 170px; display: flex; align-items: center; }
-    .port-logo img { height: 20px; width: auto; max-width: 100%; object-fit: contain; }
-    .port-logo--lexop     img { height: 20px; }  /* tight-trimmed all-caps  */
-    .port-logo--morphcast img { height: 25px; }  /* ascender + descender    */
-    .port-logo--noomi     img { height: 21px; }  /* ~11% padding in viewBox */
-    .port-logo-ph {
-      height: 24px; width: 72px; background: var(--alt); border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .62rem; font-weight: 700; letter-spacing: .08em; color: var(--mist);
-    }
-    .port-logo-lia {
-      font-family: 'Cormorant', serif; font-weight: 600;
-      font-size: 1.85rem; line-height: 1; letter-spacing: -.015em;
-      color: var(--charcoal);
-    }
-    .port-logo-lia .dot { color: var(--pre-seed); }
-    .port-logo--jarvis { gap: .5rem; }
-    .port-logo .ld { position: relative; flex-shrink: 0; width: 23px; height: 23px; }
-    .port-logo .ld .r {
-      position: absolute; inset: 0;
-      border: 2px solid var(--charcoal); border-radius: 50% 5px 50% 50%;
-    }
-    .port-logo .lw {
-      font-family: 'Outfit', sans-serif; font-weight: 700;
-      font-size: 1.3rem; line-height: 1; letter-spacing: -.045em;
-      color: var(--charcoal);
-    }
-    .port-logo .lw .u { color: var(--slate); }
-    .port-badge {
-      font-size: .68rem; font-weight: 600; letter-spacing: .08em;
-      text-transform: uppercase; padding: .22rem .7rem; border-radius: 20px; white-space: nowrap;
-    }
-    .port-badge.active     { color: var(--slate);      background: var(--alt); }
-    .port-badge.exited     { color: var(--exited);     background: var(--exited-bg); }
-    .port-badge.stealth    { color: var(--mist);       background: var(--alt); }
-    .port-badge.pre-seed { color: var(--pre-seed); background: var(--pre-seed-bg); }
-    .port-badge.seed   { color: var(--seed);   background: var(--seed-bg); }
-    .port-badge.series    { color: var(--series);    background: var(--series-bg); }
-    .port-name { font-family: 'Cormorant', serif; font-size: 1.35rem; font-weight: 600; color: var(--charcoal); margin-bottom: .45rem; }
-    .port-desc { font-size: .875rem; color: var(--body); line-height: 1.72; margin-bottom: 1.1rem; }
-    .port-meta { display: flex; gap: 1.25rem; flex-wrap: wrap; margin-bottom: .85rem; }
-    .port-tag { font-size: .72rem; font-weight: 500; color: var(--slate); letter-spacing: .04em; }
-    .port-link {
-      font-size: .83rem; font-weight: 500; color: var(--slate);
-      text-decoration: none; display: inline-flex; align-items: center; gap: .3rem; transition: color .2s;
-    }
-    .port-link:hover { color: var(--charcoal); }
-    .port-investing {
-      background: var(--paper); border: 1px dashed var(--rule);
-      border-radius: 12px; padding: 2.25rem 1.9rem;
-      display: flex; flex-direction: column; justify-content: center; gap: .9rem;
-    }
-    .port-investing-label {
-      font-size: .7rem; font-weight: 600; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--mist);
-    }
-    .port-investing-headline {
-      font-family: 'Cormorant', serif; font-size: 1.35rem; font-weight: 600;
-      color: var(--charcoal); line-height: 1.3;
-    }
-    .port-investing p { font-size: .88rem; color: var(--body); line-height: 1.72; }
-    .port-investing-cta {
-      font-size: .83rem; font-weight: 500; color: var(--slate);
-      text-decoration: none; display: inline-flex; align-items: center; gap: .3rem;
-      transition: color .2s; margin-top: .35rem;
-    }
-    .port-investing-cta:hover { color: var(--charcoal); }
-    @media (min-width: 961px) {
-      .portfolio-grid .port-investing:nth-child(odd) { grid-column: span 2; }
-    }
+/* What comes with the cheque */
+.package { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.package > div { padding: 1.6rem 1.5rem 0 0; display: grid; gap: .6rem; align-content: start; }
+.package > div + div { padding-left: 1.5rem; border-left: 1px solid var(--rule); }
+.package h3 { font-size: 1.35rem; font-weight: 600; letter-spacing: -.025em; }
+.package .label { color: var(--accent); }
+.package p { color: var(--muted); font-size: .98rem; }
 
-    /* ── Investment thesis ───────────────────────────────────────────── */
-    .investment { background: var(--paper); padding: 7rem 2rem; }
-    .investment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem; align-items: start; margin-top: 3rem; }
-    .thesis-items { display: flex; flex-direction: column; gap: .85rem; }
-    .t-row {
-      display: grid; grid-template-columns: 72px 1fr; gap: .75rem; align-items: start;
-      background: var(--white); border: 1px solid var(--rule); border-radius: 8px; padding: 1rem 1.1rem;
-    }
-    .t-label { font-size: .7rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--slate); padding-top: .22em; }
-    .t-value { font-size: .88rem; color: var(--body); line-height: 1.6; }
-    .t-value strong { color: var(--charcoal); display: block; font-weight: 500; margin-bottom: .12rem; }
-    .model-side h3 { font-family: 'Cormorant', serif; font-size: 1.3rem; font-weight: 600; color: var(--charcoal); margin-bottom: .9rem; }
-    .model-side p { font-size: .92rem; color: var(--body); line-height: 1.82; font-weight: 300; margin-bottom: .9rem; }
-    .align-block { border-left: 2.5px solid var(--slate); padding: 1rem 1.3rem; margin-top: 1.5rem; }
-    .align-block p { font-size: .9rem; color: var(--charcoal); line-height: 1.72; font-weight: 400; margin: 0; }
+/* Portfolio */
+.port-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem 1.75rem; }
+.co { display: grid; gap: .85rem; align-content: start; }
+.shot {
+  aspect-ratio: 16 / 10; max-width: 100%; border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--rule); background: var(--surface);
+}
+.shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform .5s ease; }
+.co:hover .shot img { transform: scale(1.025); }
+.shot.exit { background: var(--band); color: var(--band-ink); display: grid; align-content: space-between; padding: 1.25rem; border-color: var(--band); }
+.shot.exit img { width: auto; height: 22px; filter: grayscale(1) invert(1) brightness(1.6); }
+.shot.exit .big { font: 600 clamp(2.4rem, 4vw, 3.3rem)/.9 var(--display); letter-spacing: -.05em; }
+.shot.exit .big span { color: var(--band-muted); font-weight: 500; }
+.shot.stealth {
+  display: grid; place-items: center;
+  background: repeating-linear-gradient(-45deg, var(--surface) 0 10px, var(--ground) 10px 20px);
+}
+.co-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.co h3 { font-size: 1.2rem; font-weight: 600; letter-spacing: -.02em; }
+.co p { color: var(--muted); font-size: .95rem; line-height: 1.55; }
+.co-meta { display: flex; gap: 1rem; flex-wrap: wrap; font: 400 .75rem var(--mono); color: var(--muted); letter-spacing: .03em; }
+.co-meta a { text-decoration: none; color: var(--ink); }
+.co-meta a:hover { color: var(--accent); }
+.pill { font: 500 .68rem/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; padding: .38rem .55rem; border-radius: 999px; white-space: nowrap; }
+.pill.exited { color: var(--exit); background: var(--exit-bg); }
+.pill.pre { color: var(--pre); background: var(--pre-bg); }
+.pill.stealth { color: var(--muted); border: 1px solid var(--rule); }
 
-    /* ── Contact ─────────────────────────────────────────────────────── */
-    .contact { background: var(--charcoal); padding: 8rem 2rem; }
-    .contact-grid { display: grid; grid-template-columns: 1fr 380px; gap: 5rem; align-items: center; }
-    .contact-left .s-eyebrow { color: rgba(142,165,178,.6); }
-    .contact-left .s-eyebrow::before { background: rgba(142,165,178,.35); }
-    .contact-left .s-title { color: var(--white); max-width: 440px; }
-    .contact-sub { font-size: 1rem; color: rgba(255,255,255,.55); line-height: 1.75; font-weight: 300; max-width: 420px; margin-bottom: 2.5rem; }
-    .contact-ctas { display: flex; gap: 1.1rem; align-items: center; flex-wrap: wrap; }
-    .btn-white {
-      display: inline-block; padding: .88rem 2rem; background: var(--white); color: var(--charcoal);
-      font-weight: 600; font-size: .975rem; border-radius: 6px; text-decoration: none;
-      transition: transform .15s, box-shadow .2s; font-family: 'Outfit', sans-serif;
-    }
-    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.24); }
-    /* ① Email link — href and display text injected by JS, never in HTML source */
-    .contact-email {
-      font-size: .875rem; color: rgba(255,255,255,.45); cursor: pointer;
-      border-bottom: 1px solid rgba(255,255,255,.18); padding-bottom: .1rem;
-      transition: color .2s, border-color .2s; text-decoration: none;
-    }
-    .contact-email:hover { color: rgba(255,255,255,.78); border-color: rgba(255,255,255,.45); }
-    .expect-card {
-      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
-      border-radius: 12px; padding: 1.75rem;
-    }
-    .expect-card-label {
-      font-size: .7rem; font-weight: 600; letter-spacing: .12em;
-      text-transform: uppercase; color: rgba(142,165,178,.55); margin-bottom: 1.25rem;
-    }
-    .expect-list { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
-    .expect-list li { display: flex; gap: .75rem; align-items: flex-start; }
-    .expect-marker {
-      width: 20px; height: 20px; border-radius: 50%;
-      border: 1px solid rgba(142,165,178,.3);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; margin-top: .08em;
-      font-size: .68rem; font-weight: 600; color: rgba(142,165,178,.6);
-    }
-    .expect-text { font-size: .875rem; color: rgba(255,255,255,.52); line-height: 1.6; }
-    .expect-text strong { color: rgba(255,255,255,.84); font-weight: 500; display: block; }
+/* Quotes (placeholders) */
+.quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem; margin-top: clamp(3.5rem, 7vw, 5rem); }
+.quote { border: 1px dashed var(--muted); border-radius: 12px; padding: 1.6rem; display: grid; gap: 1rem; }
+.quote blockquote { font: 500 clamp(1.15rem, 1.8vw, 1.4rem)/1.35 var(--display); letter-spacing: -.02em; }
+.quote figcaption { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 
-    /* ── Footer ──────────────────────────────────────────────────────── */
-    footer { background: var(--paper); border-top: 1px solid var(--rule); padding: 3.5rem 2rem 2.5rem; }
-    .footer-inner { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.75rem; }
-    .footer-brand { display: flex; flex-direction: column; align-items: center; gap: .85rem; }
-    .footer-logo-img { height: 72px; width: auto; opacity: .75; border-radius: 16px; }
-    .footer-wordmark { font-family: 'Cormorant', serif; font-weight: 600; font-size: 1.55rem; letter-spacing: -.01em; color: var(--charcoal); }
-    .footer-tagline { font-size: .78rem; color: var(--mist); letter-spacing: .06em; font-weight: 300; }
-    .footer-links { display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap; justify-content: center; }
-    .footer-links a { font-size: .8rem; color: var(--body); text-decoration: none; transition: color .2s; }
-    .footer-links a:hover { color: var(--charcoal); }
-    .footer-links .sep { color: var(--rule); }
-    .footer-linkedin { display: flex; align-items: center; gap: .35rem; font-size: .8rem; color: var(--body); text-decoration: none; transition: color .2s; }
-    .footer-linkedin:hover { color: var(--charcoal); }
-    .footer-linkedin svg { width: 14px; height: 14px; }
-    /* ① Footer email — injected by JS */
-    .footer-email { font-size: .8rem; color: var(--body); text-decoration: none; cursor: pointer; transition: color .2s; }
-    .footer-email:hover { color: var(--charcoal); }
-    .footer-legal { font-size: .73rem; color: var(--mist); text-align: center; line-height: 1.7; }
+/* How we work: a real sequence, so it is numbered */
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.75rem; counter-reset: s; }
+.step { border-top: 1px solid var(--ink); padding-top: 1.25rem; display: grid; gap: .75rem; align-content: start; }
+.step .n { font: 500 .8rem var(--mono); color: var(--accent); }
+.step h3 { font-size: 1.6rem; font-weight: 600; letter-spacing: -.035em; }
+.step .intent { font-size: 1rem; }
+.step ul { list-style: none; display: grid; gap: .45rem; padding-top: .5rem; }
+.step li { font-size: .92rem; color: var(--muted); padding-left: 1.1rem; position: relative; }
+.step li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-family: var(--mono); font-size: .8rem; top: .1em; }
 
-    /* ── Sticky mobile CTA ───────────────────────────────────────────── */
-    .sticky-cta {
-      display: none; position: fixed; bottom: 0; left: 0; right: 0;
-      z-index: 99; background: rgba(245,243,238,.96);
-      backdrop-filter: blur(12px); border-top: 1px solid var(--rule); padding: .7rem 1.5rem;
-    }
-    .sticky-cta a {
-      display: block; width: 100%; padding: .78rem; background: var(--charcoal); color: var(--white);
-      font-weight: 600; font-size: .93rem; border-radius: 7px; text-decoration: none; text-align: center;
-    }
+/* Network band */
+.band { background: var(--band); color: var(--band-ink); }
+.band .label { color: var(--band-muted); }
+.band .sec-head p { color: var(--band-muted); }
+.spec { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--band-rule); border-left: 1px solid var(--band-rule); }
+.spec > div { padding: 1.5rem; border-right: 1px solid var(--band-rule); border-bottom: 1px solid var(--band-rule); display: grid; gap: .5rem; align-content: start; }
+.spec h3 { font-size: 1.15rem; font-weight: 600; letter-spacing: -.02em; }
+.spec p { color: var(--band-muted); font-size: .92rem; }
+.band-note { margin-top: 1.75rem; color: var(--band-muted); font-size: .95rem; max-width: 46em; }
 
-    /* ── Animations ──────────────────────────────────────────────────── */
-    .fade-up { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
+/* Fit */
+.fit { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 4.5rem); }
+.fit dl { border-top: 1px solid var(--ink); }
+.fit .row { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 1rem; padding-block: 1rem; border-bottom: 1px solid var(--rule); }
+.fit dt { padding-top: .2rem; }
+.fit dd strong { font-weight: 600; display: block; }
+.fit dd span { color: var(--muted); font-size: .95rem; }
+.backs { display: grid; gap: 1rem; align-content: start; }
+.backs h3 { font-size: 1.35rem; letter-spacing: -.025em; font-weight: 600; }
+.backs ul { list-style: none; display: grid; gap: .8rem; }
+.backs li { padding-left: 1.6rem; position: relative; color: var(--muted); }
+.backs li::before { content: ""; position: absolute; left: 0; top: .55em; width: .7rem; height: .7rem; border-radius: 2px; background: var(--accent); }
 
-    /* ── Responsive ──────────────────────────────────────────────────── */
-    @media (max-width: 960px) {
-      .investment-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .contact-grid    { grid-template-columns: 1fr; gap: 3rem; }
-    }
-    @media (max-width: 768px) {
-      .hero            { padding: 9.5rem 1.5rem 5.5rem; }
-      .hero-watermark  { display: none; }
-      .statement       { padding: 6rem 1.5rem; }
-      .approach, .phases, .portfolio-section,
-      .investment, .contact { padding: 4.5rem 1.5rem; }
-      .nav-links       { display: none; }
-      .nav-links.open  {
-        display: flex; flex-direction: column;
-        position: absolute; top: 100%; left: 0; right: 0;
-        background: var(--paper); border-bottom: 1px solid var(--rule);
-        padding: 1.4rem 2rem; gap: 1.2rem;
-      }
-      .nav-links.open a { color: var(--body); }
-      .mobile-btn   { display: block; }
-      .phases-grid  { grid-template-columns: 1fr; }
-      .phase        { border-right: none; border-bottom: 1px solid var(--rule); }
-      .phase:last-child { border-bottom: none; }
-      .portfolio-grid { grid-template-columns: 1fr; }
-      footer        { padding-bottom: 5rem; }
-      .sticky-cta   { display: block; }
-    }
-  </style>
+/* Founder + contact */
+.closing { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+.founder { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 1.25rem; align-items: start; }
+.photo { width: 112px; aspect-ratio: 1; border-radius: 10px; object-fit: cover; border: 1px solid var(--rule); }
+.founder p { color: var(--muted); font-size: .98rem; }
+.founder strong { color: var(--ink); font-weight: 600; }
+.contact h2 { font-size: clamp(2.2rem, 5vw, 3.75rem); font-weight: 600; line-height: 1; letter-spacing: -.045em; margin-block: 1rem 1.25rem; }
+.contact > p { color: var(--muted); max-width: 34em; }
+.process { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-block: 2rem; }
+.process li { border-top: 1px solid var(--rule); padding-top: .9rem; display: grid; gap: .3rem; font-size: .92rem; color: var(--muted); }
+.process strong { color: var(--ink); font-weight: 600; font-size: 1rem; }
+.process .n { font: 500 .75rem var(--mono); color: var(--accent); }
+.contact-ctas { display: flex; gap: 1rem 1.5rem; align-items: center; flex-wrap: wrap; }
+.contact-email { font: 400 .9rem var(--mono); color: var(--muted); }
+.contact-email:hover { color: var(--ink); }
+
+footer { border-top: 1px solid var(--rule); padding-block: 2rem 2.5rem; }
+.foot { display: flex; justify-content: space-between; align-items: center; gap: 1rem 2rem; flex-wrap: wrap; font-size: .85rem; color: var(--muted); }
+.foot a { text-decoration: none; }
+.foot a:hover { color: var(--ink); }
+.foot .links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+/* Hero entrance: starts visible, only slides */
+@media (prefers-reduced-motion: no-preference) {
+  .hero h1, .hero-sub, .hero-ctas, .terms { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+  .hero-sub { animation-delay: .06s; } .hero-ctas { animation-delay: .12s; } .terms { animation-delay: .18s; }
+  .terms .perch { animation: land .9s .5s cubic-bezier(.3,1.4,.5,1) both; }
+  @keyframes rise { from { transform: translateY(14px); } to { transform: none; } }
+  @keyframes land { from { transform: translateY(-10px) rotate(-6deg); } to { transform: none; } }
+}
+
+@media (max-width: 980px) {
+  .hero-grid, .fit, .closing { grid-template-columns: minmax(0, 1fr); }
+  .sec-head { grid-template-columns: minmax(0, 1fr); }
+  .port-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .spec { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nav-links { display: none; }
+}
+@media (max-width: 640px) {
+  .package, .steps, .port-grid, .spec, .quotes, .process { grid-template-columns: minmax(0, 1fr); }
+  .package > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--rule); }
+  .package > div { padding-bottom: 1.5rem; }
+  .fit .row { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
+  .nav .btn-sm { display: none; }
+  .terms .row { font-size: .88rem; }
+  .logos { width: 100%; justify-content: center; }
+}
+</style>
 </head>
 <body>
 
-<a class="skip-link" href="#approach"
-   data-en="Skip to content" data-fr="Aller au contenu">Skip to content</a>
+<a class="skip-link" href="#top" data-en="Skip to content" data-fr="Aller au contenu">Skip to content</a>
 
-<!-- NAV ──────────────────────────────────────────────────────────────── -->
-<nav id="nav">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">
-      <img src="assets/logo.png" alt="Two Jay Ventures" class="nav-logo-img">
-      <span class="nav-logo-name">Two Jay Ventures</span>
-    </a>
-
-    <button class="mobile-btn" id="mobileBtn" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><span class="mark" aria-hidden="true"></span>Two Jay Ventures</a>
+    <ul class="nav-links">
+      <li><a href="#portfolio" data-en="Portfolio" data-fr="Portefeuille">Portfolio</a></li>
+      <li><a href="#how" data-en="How we work" data-fr="Notre méthode">How we work</a></li>
+      <li><a href="#network" data-en="Network" data-fr="Réseau">Network</a></li>
+      <li><a href="#fit" data-en="Fit" data-fr="Critères">Fit</a></li>
+    </ul>
     <div class="nav-right">
-      <ul class="nav-links" id="navLinks" role="list">
-        <li><a href="#approach"     data-en="Approach"     data-fr="Approche">Approach</a></li>
-        <li><a href="#how-we-build" data-en="How We Build" data-fr="Comment nous construisons">How We Build</a></li>
-        <li><a href="#portfolio"    data-en="Portfolio"    data-fr="Portefeuille">Portfolio</a></li>
-        <li><a href="#investment"   data-en="Invest"       data-fr="Investir">Invest</a></li>
-        <li><a href="#contact"      data-en="Contact"      data-fr="Contact">Contact</a></li>
-      </ul>
-      <!-- ④ rel="noopener noreferrer" on all external links -->
-      <a href="https://www.linkedin.com/company/two-jay-ventures" target="_blank" rel="noopener noreferrer"
-         class="nav-linkedin" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-      <!-- ② lang toggle — no inline onclick, bound via addEventListener in script -->
-      <button class="lang-btn" id="langBtn">FR</button>
-      <!-- ⑥ cal.com URL injected by JS — no hardcoded URL in HTML source -->
-      <a href="#" class="nav-cta js-cal"
-         data-en="Book a Call" data-fr="Organiser un appel">Book a Call</a>
+      <button class="lang" id="langBtn" type="button" aria-label="Passer en français">FR</button>
+      <a class="btn btn-primary btn-sm js-cal" href="#contact" data-en="Book a call" data-fr="Réserver un appel">Book a call</a>
     </div>
   </div>
-</nav>
+</header>
 
-<!-- HERO ─────────────────────────────────────────────────────────────── -->
+<main id="top">
+
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-watermark" aria-hidden="true"></div>
-  <div class="container">
-    <div class="hero-inner fade-up">
-      <div class="hero-eyebrow"
-           data-en="Pre-Seed · Technology · Canada"
-           data-fr="Pré-amorçage · Technologie · Canada">
-        Pre-Seed · Technology · Canada
-      </div>
-      <h1 data-en="<span class='h1-l1'>Pre-seed capital,</span><br><em>By builders,</em><br>For builders."
-          data-fr="<span class='h1-l1'>Capital pré-amorçage,</span><br><em>Par des entrepreneurs,</em><br>Pour des entrepreneurs.">
-        <span class="h1-l1">Pre-seed capital,</span><br><em>By builders,</em><br>For builders.
-      </h1>
+  <div class="wrap hero-grid">
+    <div>
+      <p class="label" data-en="Angel investing · Canada" data-fr="Investissement providentiel · Canada">Angel investing · Canada</p>
+      <h1 data-en="We invest early.<span class='accent'>Then we get to work.</span>"
+          data-fr="Nous investissons tôt.<span class='accent'>Puis nous mettons la main à la pâte.</span>">We invest early.<span class="accent">Then we get to work.</span></h1>
       <p class="hero-sub"
-         data-en="Operator-investors who have been in the seat. Capital and deep operational expertise — one package, fully aligned with your success."
-         data-fr="Investisseurs-opérateurs qui ont été dans le siège. Capital et expertise opérationnelle profonde — un seul package, entièrement aligné sur votre succès.">
-        Operator-investors who have been in the seat. Capital and deep operational expertise — one package, fully aligned with your success.
-      </p>
+         data-en="Two Jay invests angel capital in pre-seed technology companies, then works inside them alongside a network of experienced operators."
+         data-fr="Two Jay investit du capital providentiel dans des entreprises technologiques au stade pré-amorçage, puis travaille à leurs côtés avec un réseau d’opérateurs d’expérience.">Two Jay invests angel capital in pre-seed technology companies, then works inside them alongside a network of experienced operators.</p>
       <div class="hero-ctas">
-        <!-- ⑥ Cal links injected by JS -->
-        <a href="#" class="btn-light js-cal"
-           data-en="Book a discovery call" data-fr="Organiser un appel découverte">
-          Book a discovery call
-        </a>
-        <a href="#approach" class="btn-ghost-light"
-           data-en="How we work" data-fr="Comment nous travaillons">
-          How we work
-        </a>
+        <a class="btn btn-primary js-cal" href="#contact" data-en="Book a 30-minute call →" data-fr="Réserver un appel de 30 minutes →">Book a 30-minute call →</a>
+        <a class="btn btn-quiet" href="#portfolio" data-en="See the portfolio" data-fr="Voir le portefeuille">See the portfolio</a>
+      </div>
+    </div>
+
+    <div class="terms">
+      <span class="mark perch" aria-hidden="true"></span>
+      <div class="terms-card">
+        <div class="terms-head">
+          <span class="label" data-en="Term sheet" data-fr="Conditions">Term sheet</span>
+          <span class="label" data-en="First cheque" data-fr="Premier chèque">First cheque</span>
+        </div>
+        <dl>
+          <div class="row"><dt data-en="Cheque" data-fr="Chèque">Cheque</dt><span class="lead"></span><dd data-en="$10K–$50K CAD" data-fr="10 k$ à 50 k$ CA">$10K–$50K CAD</dd></div>
+          <div class="row"><dt data-en="Stage" data-fr="Stade">Stage</dt><span class="lead"></span><dd data-en="Pre-seed" data-fr="Pré-amorçage">Pre-seed</dd></div>
+          <div class="row"><dt data-en="Capital" data-fr="Capital">Capital</dt><span class="lead"></span><dd data-en="Solo or co-invested Angel(s)" data-fr="Ange(s), seul(s) ou en co-investissement">Solo or co-invested Angel(s)</dd></div>
+          <div class="row"><dt data-en="Mentors" data-fr="Mentors">Mentors</dt><span class="lead"></span><dd data-en="Included" data-fr="Inclus">Included</dd></div>
+          <div class="row"><dt data-en="Fees &amp; retainers" data-fr="Frais et mandats">Fees &amp; retainers</dt><span class="lead"></span><dd class="zero">$0</dd></div>
+        </dl>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STATEMENT ────────────────────────────────────────────────────────── -->
-<section class="statement">
-  <div class="statement-inner fade-up">
-    <p class="statement-label"
-       data-en="The Two Jay Model" data-fr="Notre modèle">The Two Jay Model</p>
-    <h2 data-en="Our expertise is not a service.<br>It comes with the investment."
-        data-fr="Notre expertise n'est pas un service.<br>Elle est incluse dans l'investissement.">
-      Our expertise is not a service.<br>It comes with the investment.
-    </h2>
-    <p class="statement-body"
-       data-en="Most incubators, accelerators, and consultants charge founders for operational support — fees, retainers, advisory equity — on top of their stake. We believe that model creates a conflict. <strong>When we invest, we work alongside you at no additional cost.</strong> Our return depends entirely on yours."
-       data-fr="La plupart des incubateurs, accélérateurs et consultants facturent séparément leur soutien opérationnel — frais, mandats, equity consultatif — en plus de leur participation. Nous croyons que ce modèle crée un conflit. <strong>Quand nous investissons, nous travaillons à vos côtés sans frais supplémentaires.</strong> Notre rendement dépend entièrement du vôtre.">
-      Most incubators, accelerators, and consultants charge founders for operational support — fees, retainers, advisory equity — on top of their stake. We believe that model creates a conflict. <strong>When we invest, we work alongside you at no additional cost.</strong> Our return depends entirely on yours.
-    </p>
+<!-- LOGO STRIP -->
+<div class="strip">
+  <div class="wrap strip-inner">
+    <p class="label" data-en="Backed by Two Jay" data-fr="Soutenues par Two Jay">Backed by Two Jay</p>
+    <ul class="logos">
+      <li><img src="assets/lexop.png" alt="Lexop"></li>
+      <li><img src="assets/morphcast.png" alt="Morphcast" style="height:26px"></li>
+      <li><span class="lw-lia">Lia.</span></li>
+      <li><span class="lw-jarvis"><i aria-hidden="true"></i>usejarvis</span></li>
+      <li><img src="assets/noomi.svg" alt="Noomi" style="height:20px"></li>
+    </ul>
   </div>
-</section>
+</div>
 
-<!-- APPROACH ─────────────────────────────────────────────────────────── -->
-<section class="approach" id="approach">
-  <div class="container">
-    <div class="fade-up">
-      <div class="s-eyebrow" data-en="Our Approach" data-fr="Notre approche">Our Approach</div>
-      <h2 class="s-title"
-          data-en="By builders, for builders."
-          data-fr="Par des bâtisseurs, pour des bâtisseurs.">
-        By builders, for builders.
-      </h2>
+<!-- PACKAGE -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label" data-en="What comes with the cheque" data-fr="Ce qui vient avec le chèque">What comes with the cheque</p>
+      <div>
+        <h2 data-en="One investment. Three things you get." data-fr="Un investissement. Trois choses incluses.">One investment. Three things you get.</h2>
+      </div>
     </div>
-    <div class="approach-inner fade-up">
-      <div class="approach-body">
-        <p data-en="We spent over a decade building inside technology companies, accountable for shipping real products to real users with constrained budgets and no margin for theory. Across SaaS and fintech companies, we led product and engineering organizations from the first whiteboard to market launch: user validation, feature architecture, team structure, delivery, and the first paying customer."
-           data-fr="Nous avons passé plus d'une décennie à bâtir des entreprises technologiques, responsables de livrer de vrais produits à de vrais utilisateurs avec des budgets contraints et aucune marge pour la théorie. Dans des entreprises SaaS et fintech, nous avons dirigé des équipes produit et ingénierie du premier tableau blanc au lancement : validation utilisateur, architecture des fonctionnalités, structure d'équipe, livraison, et le premier client payant.">
-          We spent over a decade building inside technology companies, accountable for shipping real products to real users with constrained budgets and no margin for theory. Across SaaS and fintech companies, we led product and engineering organizations from the first whiteboard to market launch: user validation, feature architecture, team structure, delivery, and the first paying customer.
-        </p>
-        <p data-en="We drove fundraising processes, unlocked SR&amp;ED and IRAP programs, guided teams through OKRs, and built go-to-market strategies that generated the first revenue. We know which decisions matter at pre-seed and which are premature distractions. We have been the person sitting across from investors, across from early users, and across from an engineering team that needed direction."
-           data-fr="Nous avons piloté des processus de financement, débloqué les programmes RS&amp;DE et PARI, structuré des équipes autour des OKR, et construit des stratégies de mise en marché qui ont généré les premières revenus. Nous savons quelles décisions comptent au pré-amorçage et lesquelles sont des distractions prématurées. Nous avons été la personne assise en face des investisseurs, en face des premiers utilisateurs, et en face d'une équipe d'ingénierie qui avait besoin de direction.">
-          We drove fundraising processes, unlocked SR&amp;ED and IRAP programs, guided teams through OKRs, and built go-to-market strategies that generated the first revenue. We know which decisions matter at pre-seed and which are premature distractions. We have been the person sitting across from investors, across from early users, and across from an engineering team that needed direction.
-        </p>
-        <p data-en="That is not a consulting background repurposed for investing. It is a builder's perspective — and it is what we bring to every company we back."
-           data-fr="Ce n'est pas un parcours de consultant réorienté vers l'investissement. C'est la perspective d'un bâtisseur — et c'est ce que nous apportons à chaque entreprise que nous soutenons.">
-          That is not a consulting background repurposed for investing. It is a builder's perspective — and it is what we bring to every company we back.
-        </p>
+    <div class="package">
+      <div>
+        <span class="label" data-en="Capital" data-fr="Capital">Capital</span>
+        <h3 data-en="Conviction, early" data-fr="De la conviction, tôt">Conviction, early</h3>
+        <p data-en="We commit before most investors will, on our own or alongside co-investors, and we can follow on in later rounds."
+           data-fr="Nous nous engageons avant la plupart des investisseurs, seuls ou avec des co-investisseurs, et pouvons réinvestir aux rondes suivantes.">We commit before most investors will, on our own or alongside co-investors, and we can follow on in later rounds.</p>
+      </div>
+      <div>
+        <span class="label" data-en="Operators" data-fr="Opérateurs">Operators</span>
+        <h3 data-en="People who have done it" data-fr="Des gens qui l’ont déjà fait">People who have done it</h3>
+        <p data-en="Operators from our network work inside your company, matched to the problem in front of you."
+           data-fr="Des opérateurs de notre réseau travaillent dans votre entreprise, choisis selon l’enjeu du moment.">Operators from our network work inside your company, matched to the problem in front of you.</p>
+      </div>
+      <div>
+        <span class="label" data-en="Alignment" data-fr="Alignement">Alignment</span>
+        <h3 data-en="No bill on the side" data-fr="Aucune facture en parallèle">No bill on the side</h3>
+        <p data-en="Incubators and consultants often charge founders for support on top of their equity. We don’t. Our return depends entirely on yours."
+           data-fr="Incubateurs et consultants facturent souvent leur soutien en plus de leur participation. Pas nous. Notre rendement dépend entièrement du vôtre.">Incubators and consultants often charge founders for support on top of their equity. We don’t. Our return depends entirely on yours.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- HOW WE BUILD ─────────────────────────────────────────────────────── -->
-<section class="phases" id="how-we-build">
-  <div class="container">
-    <div class="fade-up">
-      <div class="s-eyebrow" data-en="How We Build" data-fr="Comment nous construisons">How We Build</div>
-      <h2 class="s-title"
-          data-en="From first idea to early revenue"
-          data-fr="De la première idée aux premières revenus">
-        From first idea to early revenue
-      </h2>
+<!-- PORTFOLIO -->
+<section class="block" id="portfolio" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label" data-en="Portfolio" data-fr="Portefeuille">Portfolio</p>
+      <div>
+        <h2 data-en="Companies we back and work in." data-fr="Les entreprises que nous soutenons, de l’intérieur.">Companies we back and work in.</h2>
+        <p data-en="Six companies across fintech, AI, consumer health and HR tech. Two exits so far." data-fr="Six entreprises en fintech, IA, santé grand public et RH. Deux sorties à ce jour.">Six companies across fintech, AI, consumer health and HR tech. Two exits so far.</p>
+      </div>
     </div>
-    <div class="phases-grid fade-up">
-      <div class="phase">
-        <div class="phase-num">01</div>
-        <div class="phase-name" data-en="Validate" data-fr="Valider">Validate</div>
-        <p class="phase-intent"
-           data-en="We build the case before committing capital — and help founders pressure-test it."
-           data-fr="Nous construisons le dossier avant d'engager du capital — et aidons les fondateurs à le mettre à l'épreuve.">
-          We build the case before committing capital — and help founders pressure-test it.
-        </p>
-        <ul class="phase-list">
-          <li data-en="Structure the pitch and value proposition" data-fr="Structurer le pitch et la proposition de valeur">Structure the pitch and value proposition</li>
-          <li data-en="Run user interviews and market validation" data-fr="Conduire des entretiens utilisateurs et la validation marché">Run user interviews and market validation</li>
-          <li data-en="Assess compliance and legal constraints" data-fr="Évaluer les contraintes légales et de conformité">Assess compliance and legal constraints</li>
-          <li data-en="Define the path to a first paying customer" data-fr="Définir le chemin vers le premier client payant">Define the path to a first paying customer</li>
+
+    <div class="port-grid">
+      <article class="co">
+        <div class="shot exit">
+          <img src="assets/lexop.png" alt="Lexop">
+          <div class="big" data-en="Exited<br><span>2023</span>" data-fr="Sortie<br><span>2023</span>">Exited<br><span>2023</span></div>
+        </div>
+        <div class="co-top"><h3>Lexop</h3><span class="pill exited" data-en="Exited" data-fr="Sortie">Exited</span></div>
+        <p data-en="Automated collections that raised self-cure rates and improved cash flow for lenders and service providers."
+           data-fr="Recouvrement automatisé qui a amélioré les taux de régularisation et les flux de trésorerie des prêteurs et fournisseurs.">Automated collections that raised self-cure rates and improved cash flow for lenders and service providers.</p>
+        <div class="co-meta"><span>Fintech</span><span>2023</span><a href="https://www.lexop.com" target="_blank" rel="noopener noreferrer">lexop.com ↗</a></div>
+      </article>
+
+      <article class="co">
+        <div class="shot"><img src="assets/portfolio/morphcast.jpg" alt="Morphcast website: Frugal, server-free Emotion AI" loading="lazy"></div>
+        <div class="co-top"><h3>Morphcast</h3><span class="pill exited" data-en="Exited" data-fr="Sortie">Exited</span></div>
+        <p data-en="Emotion AI that runs in the browser, restoring the emotional signal in telehealth, online learning and marketing."
+           data-fr="IA émotionnelle qui roule dans le navigateur et rétablit le signal émotionnel en télésanté, formation en ligne et marketing.">Emotion AI that runs in the browser, restoring the emotional signal in telehealth, online learning and marketing.</p>
+        <div class="co-meta"><span data-en="AI" data-fr="IA">AI</span><span>2023</span><span data-en="Exit 2025" data-fr="Sortie 2025">Exit 2025</span><a href="https://www.morphcast.com" target="_blank" rel="noopener noreferrer">morphcast.com ↗</a></div>
+      </article>
+
+      <article class="co">
+        <div class="shot"><img src="assets/portfolio/lia.jpg" alt="Lia website: the luxury AI concierge for guest operations" loading="lazy"></div>
+        <div class="co-top"><h3>Lia</h3><span class="pill pre" data-en="Pre-seed" data-fr="Pré-amorçage">Pre-seed</span></div>
+        <p data-en="An AI concierge that answers guests on every channel in seconds and runs bookings, upsells and reviews for hospitality teams."
+           data-fr="Un concierge IA qui répond aux clients sur tous les canaux en quelques secondes et gère réservations, ventes additionnelles et avis pour l’hôtellerie.">An AI concierge that answers guests on every channel in seconds and runs bookings, upsells and reviews for hospitality teams.</p>
+        <div class="co-meta"><span data-en="AI" data-fr="IA">AI</span><span>2026</span><a href="https://bookwithlia.com/" target="_blank" rel="noopener noreferrer">bookwithlia.com ↗</a></div>
+      </article>
+
+      <article class="co">
+        <div class="shot"><img src="assets/portfolio/jarvis.jpg" alt="UseJarvis website: Jarvis finds your repeated work" loading="lazy"></div>
+        <div class="co-top"><h3>UseJarvis</h3><span class="pill pre" data-en="Pre-seed" data-fr="Pré-amorçage">Pre-seed</span></div>
+        <p data-en="Finds the repeated work in your day and hands it to AI agents that operate real software, visibly and under your control."
+           data-fr="Repère le travail répétitif de votre journée et le confie à des agents IA qui opèrent de vrais logiciels, de façon visible et sous votre contrôle.">Finds the repeated work in your day and hands it to AI agents that operate real software, visibly and under your control.</p>
+        <div class="co-meta"><span data-en="AI" data-fr="IA">AI</span><span>2026</span><a href="https://www.usejarvis.dev/" target="_blank" rel="noopener noreferrer">usejarvis.dev ↗</a></div>
+      </article>
+
+      <article class="co">
+        <div class="shot"><img src="assets/portfolio/noomi.jpg" alt="Noomi website: Sharper focus, clearer thinking, steadier energy" loading="lazy"></div>
+        <div class="co-top"><h3>Noomi</h3><span class="pill pre" data-en="Pre-seed" data-fr="Pré-amorçage">Pre-seed</span></div>
+        <p data-en="Canada’s first nootropic gummy for professionals: clinically dosed focus, memory and stress support, with no caffeine."
+           data-fr="La première gomme nootropique canadienne pour les professionnels : concentration, mémoire et gestion du stress à doses cliniques, sans caféine.">Canada’s first nootropic gummy for professionals: clinically dosed focus, memory and stress support, with no caffeine.</p>
+        <div class="co-meta"><span data-en="Consumer health" data-fr="Santé grand public">Consumer health</span><span>2026</span><a href="https://www.noomigummies.com" target="_blank" rel="noopener noreferrer">noomigummies.com ↗</a></div>
+      </article>
+
+      <article class="co">
+        <div class="shot stealth"><span class="label" data-en="In stealth" data-fr="En mode furtif">In stealth</span></div>
+        <div class="co-top"><h3 data-en="Undisclosed" data-fr="Non divulguée">Undisclosed</h3><span class="pill stealth" data-en="Stealth" data-fr="Furtif">Stealth</span></div>
+        <p data-en="An HR technology company building quietly. Announcement coming."
+           data-fr="Une entreprise de technologie RH qui bâtit en silence. Annonce à venir.">An HR technology company building quietly. Announcement coming.</p>
+        <div class="co-meta"><span data-en="HR tech" data-fr="Tech RH">HR tech</span><span>2026</span></div>
+      </article>
+    </div>
+
+    <!-- Founder quotes: hidden until quotes are collected.
+    <div class="quotes">
+      <figure class="quote">
+        <blockquote data-en="“Founder quote goes here. One or two lines on what working with Two Jay changed for the company.”"
+                    data-fr="« Citation d’un fondateur ici. Une ou deux lignes sur ce que Two Jay a changé pour l’entreprise. »">“Founder quote goes here. One or two lines on what working with Two Jay changed for the company.”</blockquote>
+        <figcaption><span class="label" data-en="Founder name · Company" data-fr="Nom du fondateur · Entreprise">Founder name · Company</span><span class="label" data-en="Placeholder" data-fr="À fournir">Placeholder</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote data-en="“A second founder quote. The best ones name a specific moment: a hire, a launch, a round.”"
+                    data-fr="« Une deuxième citation. Les meilleures nomment un moment précis : une embauche, un lancement, une ronde. »">“A second founder quote. The best ones name a specific moment: a hire, a launch, a round.”</blockquote>
+        <figcaption><span class="label" data-en="Founder name · Company" data-fr="Nom du fondateur · Entreprise">Founder name · Company</span><span class="label" data-en="Placeholder" data-fr="À fournir">Placeholder</span></figcaption>
+      </figure>
+    </div>
+    -->
+  </div>
+</section>
+
+<!-- HOW WE WORK -->
+<section class="block" id="how" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label" data-en="How we work" data-fr="Notre méthode">How we work</p>
+      <div>
+        <h2 data-en="From first idea to first revenue." data-fr="De la première idée aux premiers revenus.">From first idea to first revenue.</h2>
+        <p data-en="We step in where the company is. Some founders need help proving the problem. Others need an MVP shipped or a round closed."
+           data-fr="Nous intervenons là où en est l’entreprise. Certains fondateurs doivent valider le problème. D’autres doivent livrer un MVP ou conclure une ronde.">We step in where the company is. Some founders need help proving the problem. Others need an MVP shipped or a round closed.</p>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="n">01</span>
+        <h3 data-en="Validate" data-fr="Valider">Validate</h3>
+        <p class="intent" data-en="Pressure-test the idea before money and months go into it." data-fr="Mettre l’idée à l’épreuve avant d’y investir des mois et de l’argent.">Pressure-test the idea before money and months go into it.</p>
+        <ul>
+          <li data-en="User interviews and market validation" data-fr="Entretiens utilisateurs et validation du marché">User interviews and market validation</li>
+          <li data-en="Pitch and value proposition" data-fr="Pitch et proposition de valeur">Pitch and value proposition</li>
+          <li data-en="Legal and compliance constraints" data-fr="Contraintes légales et de conformité">Legal and compliance constraints</li>
+          <li data-en="Path to a first paying customer" data-fr="Chemin vers un premier client payant">Path to a first paying customer</li>
         </ul>
       </div>
-      <div class="phase">
-        <div class="phase-num">02</div>
-        <div class="phase-name" data-en="Build" data-fr="Construire">Build</div>
-        <p class="phase-intent"
-           data-en="We lead product and engineering to ship — with founder-level urgency."
-           data-fr="Nous dirigeons produit et ingénierie pour livrer — avec l'urgence d'un fondateur.">
-          We lead product and engineering to ship — with founder-level urgency.
-        </p>
-        <ul class="phase-list">
-          <li data-en="Design user journey and feature architecture" data-fr="Concevoir le parcours utilisateur et l'architecture des fonctionnalités">Design user journey and feature architecture</li>
-          <li data-en="Deliver proof of concept" data-fr="Livrer une preuve de concept">Deliver proof of concept</li>
-          <li data-en="Deliver market-ready MVP" data-fr="Livrer un MVP prêt pour le marché">Deliver market-ready MVP</li>
-          <li data-en="Build early team and processes" data-fr="Construire l'équipe initiale et les processus">Build early team and processes</li>
+      <div class="step">
+        <span class="n">02</span>
+        <h3 data-en="Build" data-fr="Bâtir">Build</h3>
+        <p class="intent" data-en="Lead product and engineering until something real ships." data-fr="Diriger produit et ingénierie jusqu’à ce que quelque chose de réel soit livré.">Lead product and engineering until something real ships.</p>
+        <ul>
+          <li data-en="User journey and feature architecture" data-fr="Parcours utilisateur et architecture fonctionnelle">User journey and feature architecture</li>
+          <li data-en="Proof of concept, then market-ready MVP" data-fr="Preuve de concept, puis MVP prêt pour le marché">Proof of concept, then market-ready MVP</li>
+          <li data-en="First hires and team processes" data-fr="Premières embauches et processus d’équipe">First hires and team processes</li>
         </ul>
       </div>
-      <div class="phase">
-        <div class="phase-num">03</div>
-        <div class="phase-name" data-en="Scale" data-fr="Scaler">Scale</div>
-        <p class="phase-intent"
-           data-en="Product-market fit is a moving target. We keep the team aligned and funded."
-           data-fr="L'adéquation produit-marché est une cible mobile. Nous gardons l'équipe alignée et financée.">
-          Product-market fit is a moving target. We keep the team aligned and funded.
-        </p>
-        <ul class="phase-list">
-          <li data-en="Define product vision and OKR-driven roadmap" data-fr="Définir la vision produit et la feuille de route par OKR">Define product vision and OKR-driven roadmap</li>
-          <li data-en="Build GTM strategy and drive 0-to-1 growth" data-fr="Construire la stratégie GTM et piloter la croissance 0-to-1">Build GTM strategy and drive 0-to-1 growth</li>
-          <li data-en="Support funding rounds alongside lead investors" data-fr="Soutenir les tours de financement aux côtés des investisseurs principaux">Support funding rounds alongside lead investors</li>
-          <li data-en="Unlock SR&amp;ED, IRAP, and government programs" data-fr="Débloquer RS&amp;DE, PARI et programmes gouvernementaux">Unlock SR&amp;ED, IRAP, and government programs</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PORTFOLIO ────────────────────────────────────────────────────────── -->
-<section class="portfolio-section" id="portfolio">
-  <div class="container">
-    <div class="fade-up">
-      <div class="s-eyebrow" data-en="Portfolio" data-fr="Portefeuille">Portfolio</div>
-      <h2 class="s-title"
-          data-en="Founders we back"
-          data-fr="Fondateurs que nous soutenons">
-        Founders we back
-      </h2>
-      <p class="s-sub" style="margin-bottom:0"
-         data-en="Early-stage technology companies where we are invested and involved."
-         data-fr="Des entreprises technologiques en phase précoce où nous sommes investis et impliqués.">
-        Early-stage technology companies where we are invested and involved.
-      </p>
-    </div>
-    <div class="portfolio-grid fade-up">
-
-      <!-- Card 1: Lexop -->
-      <div class="port-card">
-        <div class="port-card-top">
-          <div class="port-logo port-logo--lexop"><img src="assets/lexop.png" alt="Lexop"></div>
-          <span class="port-badge exited" data-en="Exited" data-fr="Sortie">Exited</span>
-        </div>
-        <div class="port-name">Lexop</div>
-        <p class="port-desc"
-           data-en="Lexop helped organizations automate and scale their collections operations, significantly improving their self-cure rates and cash flow."
-           data-fr="Lexop aidait les organisations à automatiser et optimiser leurs opérations de recouvrement, améliorant significativement leurs taux de résolution et leurs flux de trésorerie.">
-          Lexop helped organizations automate and scale their collections operations, significantly improving their self-cure rates and cash flow.
-        </p>
-        <div class="port-meta">
-          <span class="port-tag">Fintech</span>
-          <span class="port-tag">2023</span>
-        </div>
-        <a href="https://www.lexop.com" class="port-link" target="_blank" rel="noopener noreferrer" data-en="Learn more →" data-fr="En savoir plus →">Learn more →</a>
-      </div>
-
-      <!-- Card 2: Morphcast -->
-      <div class="port-card">
-        <div class="port-card-top">
-          <div class="port-logo port-logo--morphcast"><img src="assets/morphcast.png" alt="Morphcast"></div>
-          <span class="port-badge seed" data-en="Seed" data-fr="Seed">Seed</span>
-        </div>
-        <div class="port-name">Morphcast</div>
-        <p class="port-desc"
-           data-en="Morphcast restores the emotional signal in virtual interactions, improving engagement and outcomes in Telehealth, LMS and Digital Marketing."
-           data-fr="Morphcast restaure le signal émotionnel dans les interactions virtuelles, améliorant l'engagement et les résultats en télésanté, formation en ligne et marketing digital.">
-          Morphcast restores the emotional signal in virtual interactions, improving engagement and outcomes in Telehealth, LMS and Digital Marketing.
-        </p>
-        <div class="port-meta">
-          <span class="port-tag">AI</span>
-          <span class="port-tag">2025</span>
-        </div>
-        <a href="https://www.morphcast.com" class="port-link" target="_blank" rel="noopener noreferrer" data-en="Learn more →" data-fr="En savoir plus →">Learn more →</a>
-      </div>
-
-      <!-- Card 3: Lia -->
-      <div class="port-card">
-        <div class="port-card-top">
-          <div class="port-logo"><span class="port-logo-lia">Lia<span class="dot">.</span></span></div>
-          <span class="port-badge pre-seed" data-en="Pre-Seed" data-fr="Pre-Seed">Pre-Seed</span>
-        </div>
-        <div class="port-name">Lia</div>
-        <p class="port-desc"
-           data-en="Lia offers a self-serve multi-channel AI concierge delivering highly qualified leads, increasing conversion rates and reducing operational workload."
-           data-fr="Lia offre un concierge IA multi-canal en libre-service fournissant des leads hautement qualifiés, augmentant les taux de conversion et réduisant la charge de travail opérationnelle.">
-          Lia offers a self-serve multi-channel AI concierge delivering highly qualified leads, increasing conversion rates and reducing operational workload.
-        </p>
-        <div class="port-meta">
-          <span class="port-tag">AI</span>
-          <span class="port-tag">2026</span>
-        </div>
-        <a href="https://bookwithlia.com/" class="port-link" target="_blank" rel="noopener noreferrer" data-en="Learn more →" data-fr="En savoir plus →">Learn more →</a>
-      </div>
-
-      <!-- Card 4: UseJarvis -->
-      <div class="port-card">
-        <div class="port-card-top">
-          <div class="port-logo port-logo--jarvis"><div class="ld"><div class="r"></div></div><div class="lw"><span class="u">use</span>jarvis</div></div>
-          <span class="port-badge pre-seed" data-en="Pre-Seed" data-fr="Pre-Seed">Pre-Seed</span>
-        </div>
-        <div class="port-name">UseJarvis</div>
-        <p class="port-desc"
-           data-en="Jarvis lets AI agents operate real software from the cursor, alongside humans navigation: visible, interruptible, and governed."
-           data-fr="Jarvis permet aux agents IA d'opérer directement depuis le curseur: visible, interrompable et controllé.">
-           Jarvis lets AI agents operate real software from the cursor, alongside humans navigation: visible, interruptible, and governed.        </p>
-        <div class="port-meta">
-          <span class="port-tag">AI</span>
-          <span class="port-tag">2026</span>
-        </div>
-        <a href="https://www.usejarvis.dev/" class="port-link" target="_blank" rel="noopener noreferrer" data-en="Learn more →" data-fr="En savoir plus →">Learn more →</a>
-      </div>
-
-      <!-- Card 5: Noomi -->
-      <div class="port-card">
-        <div class="port-card-top">
-          <div class="port-logo port-logo--noomi"><img src="assets/noomi.svg" alt="Noomi"></div>
-          <span class="port-badge pre-seed" data-en="Pre-Seed" data-fr="Pre-Seed">Pre-Seed</span>
-        </div>
-        <div class="port-name">Noomi</div>
-        <p class="port-desc"
-           data-en="Noomi is a Canadian nootropic gummy for ambitious professionals, delivering clinically dosed focus, memory and stress support with no caffeine or stimulants."
-           data-fr="Noomi est une gomme nootropique canadienne pour les professionnels ambitieux, offrant un soutien à la concentration, à la mémoire et au stress à doses cliniques, sans caféine ni stimulants.">
-          Noomi is a Canadian nootropic gummy for ambitious professionals, delivering clinically dosed focus, memory and stress support with no caffeine or stimulants.
-        </p>
-        <div class="port-meta">
-          <span class="port-tag" data-en="Consumer Health" data-fr="Santé grand public">Consumer Health</span>
-          <span class="port-tag">2026</span>
-        </div>
-        <a href="https://www.noomigummies.com" class="port-link" target="_blank" rel="noopener noreferrer" data-en="Learn more →" data-fr="En savoir plus →">Learn more →</a>
-      </div>
-
-      <!-- Card 6: Stealth -->
-      <div class="port-card">
-        <div class="port-card-top">
-          <div class="port-logo"><div class="port-logo-ph">—</div></div>
-          <span class="port-badge stealth" data-en="In Stealth" data-fr="En mode furtif">In Stealth</span>
-        </div>
-        <div class="port-name" data-en="Undisclosed" data-fr="Non divulgué">Undisclosed</div>
-        <p class="port-desc"
-           data-en="Technology company currently in stealth mode. Announcement coming."
-           data-fr="Entreprise technologique actuellement en mode furtif. Annonce à venir.">
-          Technology company currently in stealth mode. Announcement coming.
-        </p>
-        <div class="port-meta">
-          <span class="port-tag">HR Tech</span>
-          <span class="port-tag">2026</span>
-        </div>
-      </div>
-
-      <!-- Actively investing panel -->
-      <div class="port-investing">
-        <p class="port-investing-label"
-           data-en="Actively Investing" data-fr="En cours d'investissement">Actively Investing</p>
-        <p class="port-investing-headline"
-           data-en="Looking for pragmatic builders."
-           data-fr="À la recherche de bâtisseurs pragmatiques.">
-          Looking for pragmatic builders.
-        </p>
-        <p data-en="We back founders who are data-driven and practical — focused on building sustainable, responsible technology businesses rather than chasing trends."
-           data-fr="Nous soutenons des fondateurs pragmatiques et axés sur les données — concentrés sur la construction d'entreprises technologiques durables et responsables plutôt que de suivre les tendances.">
-          We back founders who are data-driven and practical — focused on building sustainable, responsible technology businesses rather than chasing trends.
-        </p>
-        <a href="#contact" class="port-investing-cta"
-           data-en="Tell us what you are building →" data-fr="Parlez-nous de ce que vous construisez →">
-          Tell us what you are building →
-        </a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- INVESTMENT THESIS ────────────────────────────────────────────────── -->
-<section class="investment" id="investment">
-  <div class="container">
-    <div class="fade-up">
-      <div class="s-eyebrow" data-en="Investment Thesis" data-fr="Thèse d'investissement">Investment Thesis</div>
-      <h2 class="s-title"
-          data-en="What we back and why"
-          data-fr="Ce que nous soutenons et pourquoi">
-        What we back and why
-      </h2>
-    </div>
-    <div class="investment-grid fade-up">
-      <div class="thesis-items">
-        <div class="t-row">
-          <span class="t-label" data-en="Stage" data-fr="Étape">Stage</span>
-          <div class="t-value">
-            <strong data-en="Pre-seed" data-fr="Pré-amorçage">Pre-seed</strong>
-            <span data-en="We invest at the highest-risk, highest-impact moment — before most investors will." data-fr="Nous investissons au moment de risque le plus élevé et d'impact le plus fort — avant que la plupart des investisseurs ne le fassent.">We invest at the highest-risk, highest-impact moment — before most investors will.</span>
-          </div>
-        </div>
-        <div class="t-row">
-          <span class="t-label" data-en="Sector" data-fr="Secteur">Sector</span>
-          <div class="t-value">
-            <strong data-en="Technology" data-fr="Technologie">Technology</strong>
-            <span data-en="SaaS, Fin Tech, HR Tech, Health Tech and AI." data-fr="SaaS, Fin Tech, HR Tech, Health Tech et IA.">SaaS, Fin Tech, HR Tech, Health Tech and AI.</span>
-          </div>
-        </div>
-        <div class="t-row">
-          <span class="t-label" data-en="Geography" data-fr="Géographie">Geography</span>
-          <div class="t-value">
-            <strong data-en="Canada-first" data-fr="Canada en priorité">Canada-first</strong>
-            <span data-en="Rooted in the Canadian startup ecosystem. No hard borders." data-fr="Ancrés dans l'écosystème des startups canadiennes. Sans frontières rigides.">Rooted in the Canadian startup ecosystem. No hard borders.</span>
-          </div>
-        </div>
-        <div class="t-row">
-          <span class="t-label" data-en="Role" data-fr="Rôle">Role</span>
-          <div class="t-value">
-            <strong data-en="Follow-on investor" data-fr="Investisseur suiveur">Follow-on investor</strong>
-            <span data-en="We co-invest alongside lead investors in subsequent rounds, supporting our portfolio companies as they raise and scale." data-fr="Nous co-investissons aux côtés des investisseurs principaux lors des tours suivants, soutenant nos sociétés en portefeuille à mesure qu'elles lèvent des fonds et se développent.">We co-invest alongside lead investors in subsequent rounds, supporting our portfolio companies as they raise and scale.</span>
-          </div>
-        </div>
-      </div>
-      <div class="model-side">
-        <h3 data-en="What makes a fundable founder" data-fr="Ce qui rend un fondateur finançable">What makes a fundable founder</h3>
-        <p data-en="We back pragmatic, data-driven founders who are focused on building sustainable and responsible technology businesses. Not founders chasing valuation. Not founders who treat every problem as a nail for the AI hammer. Founders who understand their market, have talked to their users, and can tell you exactly what they know — and what they don't."
-           data-fr="Nous soutenons des fondateurs pragmatiques, axés sur les données, qui se concentrent sur la construction d'entreprises technologiques durables et responsables. Pas des fondateurs qui courent après la valorisation. Pas des fondateurs qui traitent chaque problème comme un clou pour le marteau de l'IA. Des fondateurs qui comprennent leur marché, ont parlé à leurs utilisateurs, et peuvent vous dire exactement ce qu'ils savent — et ce qu'ils ne savent pas.">
-          We back pragmatic, data-driven founders who are focused on building sustainable and responsible technology businesses. Not founders chasing valuation. Not founders who treat every problem as a nail for the AI hammer. Founders who understand their market, have talked to their users, and can tell you exactly what they know — and what they don't.
-        </p>
-        <p data-en="Prior startup experience is not a requirement. A clear-eyed understanding of the problem — and the intellectual honesty to admit what still needs to be proven — is."
-           data-fr="Une expérience préalable en startup n'est pas une exigence. Une compréhension lucide du problème — et l'honnêteté intellectuelle d'admettre ce qui reste encore à prouver — l'est.">
-          Prior startup experience is not a requirement. A clear-eyed understanding of the problem — and the intellectual honesty to admit what still needs to be proven — is.
-        </p>
-        <div class="align-block">
-          <p data-en="If you are building a technology product at the pre-seed stage and want a partner who is invested in your success — financially and operationally — we want to hear from you."
-             data-fr="Si vous construisez un produit technologique au stade pré-amorçage et souhaitez un partenaire investi dans votre succès — financièrement et opérationnellement — nous voulons avoir de vos nouvelles.">
-            If you are building a technology product at the pre-seed stage and want a partner who is invested in your success — financially and operationally — we want to hear from you.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT ──────────────────────────────────────────────────────────── -->
-<section class="contact" id="contact">
-  <div class="container">
-    <div class="contact-grid fade-up">
-      <div class="contact-left">
-        <div class="s-eyebrow" data-en="Get in Touch" data-fr="Contactez-nous">Get in Touch</div>
-        <h2 class="s-title"
-            data-en="Building something worth backing?"
-            data-fr="Vous construisez quelque chose qui mérite d'être soutenu ?">
-          Building something worth backing?
-        </h2>
-        <p class="contact-sub"
-           data-en="If you are a technology founder at the pre-seed stage — or approaching it — we would like to hear about what you are building."
-           data-fr="Si vous êtes un fondateur en technologie au stade pré-amorçage — ou proche de ce stade — nous souhaitons entendre parler de ce que vous construisez.">
-          If you are a technology founder at the pre-seed stage — or approaching it — we would like to hear about what you are building.
-        </p>
-        <div class="contact-ctas">
-          <!-- ⑥ Cal link injected by JS -->
-          <a href="#" class="btn-white js-cal"
-             data-en="Book a free discovery call" data-fr="Organiser un appel découverte gratuit">
-            Book a free discovery call
-          </a>
-          <!--
-            ① Email — href and display text injected by JS at runtime.
-               No plaintext email address exists anywhere in this HTML source.
-          -->
-          <a href="#" class="contact-email js-email"
-             data-en="contact us" data-fr="contactez-nous">contact us</a>
-        </div>
-      </div>
-      <div class="expect-card">
-        <p class="expect-card-label"
-           data-en="What to expect" data-fr="À quoi s'attendre">What to expect</p>
-        <ul class="expect-list">
-          <li>
-            <span class="expect-marker">1</span>
-            <span class="expect-text">
-              <strong data-en="30-minute conversation" data-fr="Conversation de 30 minutes">30-minute conversation</strong>
-              <span data-en="No deck required. Tell us what you are building and where you are stuck." data-fr="Aucun deck requis. Dites-nous ce que vous construisez et où vous êtes bloqué.">No deck required. Tell us what you are building and where you are stuck.</span>
-            </span>
-          </li>
-          <li>
-            <span class="expect-marker">2</span>
-            <span class="expect-text">
-              <strong data-en="Honest feedback" data-fr="Retour honnête">Honest feedback</strong>
-              <span data-en="We tell you directly what we think — whether it leads to an investment or not." data-fr="Nous vous disons directement ce que nous pensons — que cela mène à un investissement ou non.">We tell you directly what we think — whether it leads to an investment or not.</span>
-            </span>
-          </li>
-          <li>
-            <span class="expect-marker">3</span>
-            <span class="expect-text">
-              <strong data-en="Response within one week" data-fr="Réponse sous une semaine">Response within one week</strong>
-              <span data-en="If there is a fit, we move quickly. If not, we tell you why." data-fr="S'il y a une compatibilité, nous agissons rapidement. Sinon, nous vous expliquons pourquoi.">If there is a fit, we move quickly. If not, we tell you why.</span>
-            </span>
-          </li>
+      <div class="step">
+        <span class="n">03</span>
+        <h3 data-en="Grow" data-fr="Croître">Grow</h3>
+        <p class="intent" data-en="Find repeatable revenue and keep the company funded." data-fr="Trouver des revenus récurrents et garder l’entreprise financée.">Find repeatable revenue and keep the company funded.</p>
+        <ul>
+          <li data-en="Go-to-market strategy and first growth" data-fr="Stratégie de mise en marché et première croissance">Go-to-market strategy and first growth</li>
+          <li data-en="OKR-driven product roadmap" data-fr="Feuille de route produit par OKR">OKR-driven product roadmap</li>
+          <li data-en="Fundraising alongside lead investors" data-fr="Financement aux côtés des investisseurs principaux">Fundraising alongside lead investors</li>
+          <li data-en="SR&amp;ED, IRAP and government programs" data-fr="RS&amp;DE, PARI et programmes gouvernementaux">SR&amp;ED, IRAP and government programs</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER ───────────────────────────────────────────────────────────── -->
+<!-- NETWORK -->
+<section class="block band" id="network">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label" data-en="The network" data-fr="Le réseau">The network</p>
+      <div>
+        <h2 data-en="Operator-investors, called in when you need them." data-fr="Des opérateurs-investisseurs, mobilisés selon vos besoins.">Operator-investors, called in when you need them.</h2>
+        <p data-en="Behind Two Jay is a bench of operators who also invest."
+           data-fr="Derrière Two Jay, un groupe d’opérateurs qui investissent aussi.">Behind Two Jay is a bench of operators who also invest.</p>
+      </div>
+    </div>
+    <div class="spec">
+      <div><span class="label" data-en="Product" data-fr="Produit">Product</span><h3 data-en="Product &amp; UX" data-fr="Produit et UX">Product &amp; UX</h3><p data-en="Discovery, roadmaps, user research, the first version worth shipping." data-fr="Découverte, feuilles de route, recherche utilisateur, la première version digne d’être livrée.">Discovery, roadmaps, user research, the first version worth shipping.</p></div>
+      <div><span class="label" data-en="Engineering" data-fr="Ingénierie">Engineering</span><h3 data-en="Architecture &amp; delivery" data-fr="Architecture et livraison">Architecture &amp; delivery</h3><p data-en="Technical choices that hold up and a team that ships on time." data-fr="Des choix techniques solides et une équipe qui livre à temps.">Technical choices that hold up and a team that ships on time.</p></div>
+      <div><span class="label" data-en="Growth" data-fr="Croissance">Growth</span><h3 data-en="Go-to-market" data-fr="Mise en marché">Go-to-market</h3><p data-en="Positioning, pricing, first sales motion and the first paying customers." data-fr="Positionnement, prix, premier processus de vente et premiers clients payants.">Positioning, pricing, first sales motion and the first paying customers.</p></div>
+      <div><span class="label" data-en="Capital" data-fr="Capital">Capital</span><h3 data-en="Fundraising" data-fr="Financement">Fundraising</h3><p data-en="Deck, data room, investor introductions and the round process." data-fr="Présentation, salle de données, introductions aux investisseurs et processus de ronde.">Deck, data room, investor introductions and the round process.</p></div>
+      <div><span class="label" data-en="Non-dilutive" data-fr="Non dilutif">Non-dilutive</span><h3 data-en="SR&amp;ED, IRAP &amp; grants" data-fr="RS&amp;DE, PARI et subventions">SR&amp;ED, IRAP &amp; grants</h3><p data-en="Canadian programs that stretch a pre-seed round further." data-fr="Les programmes canadiens qui font durer une ronde de pré-amorçage plus longtemps.">Canadian programs that stretch a pre-seed round further.</p></div>
+      <div><span class="label" data-en="Risk" data-fr="Risque">Risk</span><h3 data-en="Legal &amp; compliance" data-fr="Juridique et conformité">Legal &amp; compliance</h3><p data-en="Regulated markets, contracts and the constraints to know before you build." data-fr="Marchés réglementés, contrats et contraintes à connaître avant de bâtir.">Regulated markets, contracts and the constraints to know before you build.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FIT -->
+<section class="block" id="fit">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label" data-en="Fit" data-fr="Critères">Fit</p>
+      <div><h2 data-en="What we back." data-fr="Ce que nous soutenons.">What we back.</h2></div>
+    </div>
+    <div class="fit">
+      <dl>
+        <div class="row"><dt class="label" data-en="Sectors" data-fr="Secteurs">Sectors</dt><dd><strong data-en="Technology" data-fr="Technologie">Technology</strong><span data-en="SaaS, fintech, HR tech, health tech and AI." data-fr="SaaS, fintech, tech RH, technologies de la santé et IA.">SaaS, fintech, HR tech, health tech and AI.</span></dd></div>
+        <div class="row"><dt class="label" data-en="Geography" data-fr="Géographie">Geography</dt><dd><strong data-en="Canada first" data-fr="Canada d’abord">Canada first</strong><span data-en="Rooted in the Canadian ecosystem, with no hard borders." data-fr="Ancrés dans l’écosystème canadien, sans frontières rigides.">Rooted in the Canadian ecosystem, with no hard borders.</span></dd></div>
+        <div class="row"><dt class="label" data-en="Experience" data-fr="Expérience">Experience</dt><dd><strong data-en="Not required" data-fr="Non requise">Not required</strong><span data-en="First-time founders are welcome. Clear thinking about the problem matters more." data-fr="Les fondateurs à leur première entreprise sont les bienvenus. Une vision claire du problème compte davantage.">First-time founders are welcome. Clear thinking about the problem matters more.</span></dd></div>
+      </dl>
+      <div class="backs">
+        <h3 data-en="The founders we look for" data-fr="Les fondateurs que nous cherchons">The founders we look for</h3>
+        <ul>
+          <li data-en="They have talked to their users and can say what they know and what they still need to prove." data-fr="Ils ont parlé à leurs utilisateurs et savent dire ce qu’ils savent et ce qui reste à prouver.">They have talked to their users and can say what they know and what they still need to prove.</li>
+          <li data-en="They are building a durable business, and valuation is not the goal." data-fr="Ils bâtissent une entreprise durable, et la valorisation n’est pas le but.">They are building a durable business, and valuation is not the goal.</li>
+          <li data-en="They use AI where it solves the problem, and skip it where it doesn’t." data-fr="Ils utilisent l’IA là où elle règle le problème, et s’en passent ailleurs.">They use AI where it solves the problem, and skip it where it doesn’t.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER + CONTACT -->
+<section class="block" id="contact" style="padding-top:0">
+  <div class="wrap closing">
+    <div class="founder">
+      <img class="photo" src="assets/founder-jonathan-sm.jpg" alt="Jonathan Jenin" width="112" height="112">
+      <div>
+        <p class="label" style="margin-bottom:.6rem" data-en="Why “Two Jay”" data-fr="Pourquoi « Two Jay »">Why “Two Jay”</p>
+        <p data-en="Two Jay Ventures was founded by <strong>Jonathan Jenin</strong>. The name comes from his initials, and the jay from the bird. Jonathan spent more than a decade leading product and engineering in SaaS and fintech."
+           data-fr="Two Jay Ventures a été fondée par <strong>Jonathan Jenin</strong>. Le nom vient de ses initiales, et le geai, de l’oiseau. Jonathan a dirigé produit et ingénierie pendant plus de dix ans en SaaS et en fintech.">Two Jay Ventures was founded by <strong>Jonathan Jenin</strong>. The name comes from his initials, and the jay from the bird. Jonathan spent more than a decade leading product and engineering in SaaS and fintech.</p>
+      </div>
+    </div>
+
+    <div class="contact">
+      <p class="label" data-en="Talk to us" data-fr="Parlons-en">Talk to us</p>
+      <h2 data-en="What are you building?" data-fr="Que bâtissez-vous ?">What are you building?</h2>
+      <p data-en="If you are a technology founder at pre-seed, or getting close, we want to hear about it. No deck needed for the first call."
+         data-fr="Si vous êtes fondateur en technologie au stade pré-amorçage, ou presque, nous voulons en entendre parler. Aucune présentation requise pour le premier appel.">If you are a technology founder at pre-seed, or getting close, we want to hear about it. No deck needed for the first call.</p>
+      <ol class="process">
+        <li><span class="n">01</span><strong data-en="30-minute call" data-fr="Appel de 30 minutes">30-minute call</strong><span data-en="Tell us what you’re building and where you’re stuck." data-fr="Dites-nous ce que vous bâtissez et où vous bloquez.">Tell us what you’re building and where you’re stuck.</span></li>
+        <li><span class="n">02</span><strong data-en="Straight feedback" data-fr="Une rétroaction franche">Straight feedback</strong><span data-en="What we think, whether or not we invest." data-fr="Ce que nous pensons, que nous investissions ou non.">What we think, whether or not we invest.</span></li>
+        <li><span class="n">03</span><strong data-en="Answer within a week" data-fr="Réponse sous une semaine">Answer within a week</strong><span data-en="If it’s a fit we move fast. If not, we tell you why." data-fr="Si c’est un bon match, nous avançons vite. Sinon, nous vous disons pourquoi.">If it’s a fit we move fast. If not, we tell you why.</span></li>
+      </ol>
+      <div class="contact-ctas">
+        <a class="btn btn-primary js-cal" href="#contact" data-en="Book a 30-minute call →" data-fr="Réserver un appel de 30 minutes →">Book a 30-minute call →</a>
+        <!-- ① No address in the DOM: main.js opens mail only on a real click. -->
+        <a class="contact-email js-email" href="#contact" data-en="Email us" data-fr="Écrivez-nous">Email us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
 <footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="assets/logo.png" alt="Two Jay Ventures" class="footer-logo-img">
-      <span class="footer-wordmark">Two Jay Ventures</span>
-      <span class="footer-tagline"
-            data-en="Operator-investors. Pre-seed. Canada."
-            data-fr="Investisseurs-opérateurs. Pré-amorçage. Canada.">
-        Operator-investors. Pre-seed. Canada.
-      </span>
+  <div class="wrap foot">
+    <a class="brand" href="#top"><span class="mark" aria-hidden="true"></span>Two Jay Ventures</a>
+    <div class="links">
+      <a href="https://www.linkedin.com/company/two-jay-ventures" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="js-cal" href="#contact" data-en="Book a call" data-fr="Réserver un appel">Book a call</a>
+      <span>© 2026 Two Jay Ventures Inc.</span>
     </div>
-    <div class="footer-links">
-      <a href="https://twojay.vc">twojay.vc</a>
-      <span class="sep">·</span>
-      <!-- ① Footer email — injected by JS -->
-      <a href="#" class="footer-email js-email">&#8203;</a>
-      <span class="sep">·</span>
-      <!-- ⑥ Cal link injected by JS -->
-      <a href="#" class="js-cal"
-         data-en="Book a call" data-fr="Organiser un appel">Book a call</a>
-      <span class="sep">·</span>
-      <a href="https://www.linkedin.com/company/two-jay-ventures" target="_blank" rel="noopener noreferrer"
-         class="footer-linkedin" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        LinkedIn
-      </a>
-    </div>
-    <p class="footer-legal">
-      &#169; 2026 Two Jay Ventures Inc. All rights reserved.
-      &nbsp;&#183;&nbsp;
-      <span data-en="Information submitted through this site is used solely to evaluate investment opportunities and is not shared with third parties."
-            data-fr="Les informations soumises via ce site sont utilisées uniquement pour évaluer les opportunités d'investissement et ne sont pas partagées avec des tiers.">
-        Information submitted through this site is used solely to evaluate investment opportunities and is not shared with third parties.
-      </span>
-    </p>
   </div>
 </footer>
 
-<!-- Sticky mobile CTA — ⑥ injected by JS -->
-<div class="sticky-cta">
-  <a href="#" class="js-cal"
-     data-en="Book a free discovery call" data-fr="Organiser un appel découverte gratuit">
-    Book a free discovery call
-  </a>
-</div>
-
-<!--
-  ⑧ All JS in external main.js (IIFE, no globals).
-  ② All event binding via addEventListener — no inline handlers.
-  ① Email and cal.com URL assembled at runtime in main.js.
-  CSP script-src 'self' allows main.js; blocks all inline scripts.
--->
 <script src="lib/main.js" defer></script>
 </body>
 </html>
