@@ -74,6 +74,7 @@
   --band-muted: #9AA6B4;
   --band-rule: #233041;
   --exit:     #1F6B48;  --exit-bg:  #DCEFE4;
+  --seed:     #1F3BCC;  --seed-bg:  #E2E7FA;
   --pre:      #7A5A0E;  --pre-bg:   #F3E9CC;
   --logo-filter: grayscale(1) contrast(1.1);
   --display: "Geist", "Helvetica Neue", Arial, sans-serif;
@@ -90,6 +91,7 @@
     --rule: #262E36; --accent: #8FA2FF; --accent-ink: #0D1115;
     --band: #05080C; --band-ink: #E9EDF2; --band-muted: #8E9AA8; --band-rule: #1C2633;
     --exit: #7FD3A6; --exit-bg: #16302A;
+    --seed: #A9B7FF; --seed-bg: #1C2547;
     --pre: #E8C877; --pre-bg: #3A2F12;
     --logo-filter: grayscale(1) invert(1) brightness(1.4);
   }
@@ -100,6 +102,7 @@
   --rule: #262E36; --accent: #8FA2FF; --accent-ink: #0D1115;
   --band: #05080C; --band-ink: #E9EDF2; --band-muted: #8E9AA8; --band-rule: #1C2633;
   --exit: #7FD3A6; --exit-bg: #16302A;
+  --seed: #A9B7FF; --seed-bg: #1C2547;
   --pre: #E8C877; --pre-bg: #3A2F12;
   --logo-filter: grayscale(1) invert(1) brightness(1.4);
 }
@@ -253,6 +256,7 @@ section.block { padding-block: clamp(4.5rem, 9vw, 7.5rem); }
 .co-meta a:hover { color: var(--accent); }
 .pill { font: 500 .68rem/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; padding: .38rem .55rem; border-radius: 999px; white-space: nowrap; }
 .pill.exited { color: var(--exit); background: var(--exit-bg); }
+.pill.seed { color: var(--seed); background: var(--seed-bg); }
 .pill.pre { color: var(--pre); background: var(--pre-bg); }
 .pill.stealth { color: var(--muted); border: 1px solid var(--rule); }
 
@@ -453,7 +457,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 2rem 2.5rem; }
       <p class="label" data-en="Portfolio" data-fr="Portefeuille">Portfolio</p>
       <div>
         <h2 data-en="Companies we back and work in." data-fr="Les entreprises que nous soutenons, de l’intérieur.">Companies we back and work in.</h2>
-        <p data-en="Five companies across fintech, AI and HR tech. Two exits so far." data-fr="Cinq entreprises en fintech, IA et RH. Deux sorties à ce jour.">Five companies across fintech, AI and HR tech. Two exits so far.</p>
+        <p data-en="Five companies across fintech, AI and HR tech. One exit so far." data-fr="Cinq entreprises en fintech, IA et RH. Une sortie à ce jour.">Five companies across fintech, AI and HR tech. One exit so far.</p>
       </div>
     </div>
 
@@ -471,10 +475,10 @@ footer { border-top: 1px solid var(--rule); padding-block: 2rem 2.5rem; }
 
       <article class="co">
         <div class="shot"><img src="assets/portfolio/morphcast.jpg" alt="Morphcast website: Frugal, server-free Emotion AI" loading="lazy"></div>
-        <div class="co-top"><h3>Morphcast</h3><span class="pill exited" data-en="Exited" data-fr="Sortie">Exited</span></div>
+        <div class="co-top"><h3>Morphcast</h3><span class="pill seed">Seed</span></div>
         <p data-en="Emotion AI that runs in the browser, restoring the emotional signal in telehealth, online learning and marketing."
            data-fr="IA émotionnelle qui roule dans le navigateur et rétablit le signal émotionnel en télésanté, formation en ligne et marketing.">Emotion AI that runs in the browser, restoring the emotional signal in telehealth, online learning and marketing.</p>
-        <div class="co-meta"><span data-en="AI" data-fr="IA">AI</span><span>2023</span><a href="https://www.morphcast.com" target="_blank" rel="noopener noreferrer">morphcast.com ↗</a></div>
+        <div class="co-meta"><span data-en="AI" data-fr="IA">AI</span><span>2025</span><a href="https://www.morphcast.com" target="_blank" rel="noopener noreferrer">morphcast.com ↗</a></div>
       </article>
 
       <article class="co">
